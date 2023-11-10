@@ -4,11 +4,15 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'main': '#1584EB',
+        'grey': '#2E323D',
+      },
+    },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
-
+};
