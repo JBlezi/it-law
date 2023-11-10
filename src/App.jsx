@@ -1,4 +1,5 @@
 import './App.css';
+import './index.css';
 import HomePage from './HomePage';
 import Navbar from './Navbar';
 import {

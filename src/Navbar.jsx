@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Link } from 'react-router-dom';
 import logo from './images/biernath.com.favicon.png';
+import { FaSearch } from 'react-icons/fa';
 
 const Navbar = () => {
 /*   const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem("lng") || 'de');
@@ -16,6 +17,7 @@ const Navbar = () => {
     <nav className="p-4 text-black">
       <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
         <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-14 md:h-20 rounded-full" /></Link>
+        <FaSearch className="text-4xl"/>
 {/*         <div className='wrap flex flex-row'>
           <div className='fill-wrap'>
             <div className="flex flex-row mx-4 text-xl md:text-2xl">
