@@ -1,6 +1,8 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Link } from 'react-router-dom';
 import logo from './images/biernath.com.favicon.png';
+import hamburger from './images/hamburger.svg';
+import closingX from './images/ClosingX.svg';
 import { FaSearch } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -13,11 +15,20 @@ const Navbar = () => {
     localStorage.setItem("lng", lang)
   }; */
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="p-4 text-black">
       <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
-        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-14 md:h-20 rounded-full" /></Link>
-        <FaSearch className="text-4xl"/>
+        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 md:h-20 rounded-full" /></Link>
+        <FaSearch className="text-2xl"/>
+        <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
+          {!isOpen ? (
+              <img src={hamburger} alt="Open menu" className="h-10 w-10" />
+          ) : (
+              <img src={closingX} alt="Close menu" className="h-10 w-10" />
+          )}
+        </div>
 {/*         <div className='wrap flex flex-row'>
           <div className='fill-wrap'>
             <div className="flex flex-row mx-4 text-xl md:text-2xl">
