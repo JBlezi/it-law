@@ -43,6 +43,9 @@ const HomePage = () => {
         </div>
       </div>
       <Article header={article1.header} image={article1.image} authors={article1.authors} date={article1.date} reading_time={article1.reading_time} content={article1.content}/>
+      <div>
+        
+      </div>
     </div>
   );
 };
