@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import EuKommission from './images/Eu-Kommission-PS3.png';
 import Button from './button';
 import Article from './Article';
 import RSSComponent from './RSSComponent';
+import { fetchBlogPosts } from './contentful';
+
+
 
 const HomePage = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const blogPosts = await fetchBlogPosts();
+      setPosts(blogPosts);
+    };
+    console.log(posts)
+    getPosts();
+  },[]);
 
   const article1 = {
     image: EuKommission,
@@ -15,17 +28,13 @@ const HomePage = () => {
     content: 'On 28 June 2023, the EU Commission presented proposals for a Payment Services Directive 3 (“PSD3“) and a…'
   };
 
-  const feedArticle1 = {
-    title: 'BaFin applies ESMA guidelines for DLT-based market infrastructures',
-    source: 'Bafin',
-    link: 'https://www.bafin.de/DE/Startseite/startseite_node.html'
-  };
 
-  const backgroundStyle = {
-    backgroundImage: `url(${article1.image})`,
-    backgroundSize: 'cover', // or other CSS background properties you need
+  const backgroundStyle = posts.length > 0 ? {
+    backgroundImage: `url(${posts[0].fields.image.fields.file.url})`,
+    backgroundSize: 'cover',
     backgroundPosition: 'center'
-  };
+  } : {};
+
 
   return (
     <div>
@@ -43,8 +52,9 @@ const HomePage = () => {
         </div>
       </div>
       <div className='mt-64'>
-        <Article header={article1.header} image={article1.image} authors={article1.authors} date={article1.date} reading_time={article1.reading_time} content={article1.content}/>
-
+        {posts.map(post => (
+          <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={article1.date} reading_time={article1.reading_time} content={post.fields.content}/>
+        ))}
       </div>
     </div>
   );
