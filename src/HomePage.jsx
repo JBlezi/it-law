@@ -2,7 +2,7 @@ import React from 'react';
 import EuKommission from './images/Eu-Kommission-PS3.png';
 import Button from './button';
 import Article from './Article';
-import FeedArticle from './feedArticle';
+import RSSComponent from './RSSComponent';
 
 const HomePage = () => {
 
@@ -36,15 +36,15 @@ const HomePage = () => {
           <h2 className='text-xl font-medium mb-4'>by <span className='underline'>{article1.authors.first},</span> <span className='underline'>{article1.authors.second} </span>| {article1.date} | {article1.reading_time} min read</h2>
           <p className='text-2xl font-medium mb-8'>{article1.content}</p>
           <Button color='main' link='/home' text='READ MORE'/>
-          <div className='h-96 bg-white p-8 my-8 rounded-lg'>
+          <div className='h-[28rem] bg-white p-8 my-8 rounded-lg shadow-lg'>
             <h2 className='text-grey underline'>NEWS</h2>
-            <FeedArticle title={feedArticle1.title} source={feedArticle1.source} link={feedArticle1.link} />
+            <RSSComponent></RSSComponent>
           </div>
         </div>
       </div>
-      <Article header={article1.header} image={article1.image} authors={article1.authors} date={article1.date} reading_time={article1.reading_time} content={article1.content}/>
-      <div>
-        
+      <div className='mt-64'>
+        <Article header={article1.header} image={article1.image} authors={article1.authors} date={article1.date} reading_time={article1.reading_time} content={article1.content}/>
+
       </div>
     </div>
   );

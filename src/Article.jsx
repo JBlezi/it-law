@@ -12,7 +12,7 @@ const Article = (props) => {
 
 
   return (
-    <div className='mx-8 text-grey mt-48'>
+    <div className='mx-8 text-grey'>
       <a href={link}>
         <h2 className='text-2xl font-bold mb-4'>{header}</h2>
         <img src={image} alt="" className='aspect-video object-cover mb-4'/>
