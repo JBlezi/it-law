@@ -5,8 +5,8 @@ const Article = (props) => {
   const image = props.image;
   const header = props.header;
   const authors = props.authors;
-  const date = props.date;
-  const reading_time = props.reading_time;
+  const date = props.date || 1;
+  const reading_time = props.reading_time || 3;
   const content = props.content;
 
 

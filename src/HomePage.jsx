@@ -15,7 +15,6 @@ const HomePage = () => {
       const blogPosts = await fetchBlogPosts();
       setPosts(blogPosts);
     };
-    console.log(posts)
     getPosts();
   },[]);
 

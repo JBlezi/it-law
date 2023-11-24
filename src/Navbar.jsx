@@ -5,8 +5,8 @@ import hamburger from './images/hamburger.svg';
 import closingX from './images/ClosingX.svg';
 import { FaSearch } from 'react-icons/fa';
 
-const Navbar = () => {
-/*   const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem("lng") || 'de');
+const Navbar = ({ onSearch }) => {
+  /*   const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem("lng") || 'de');
   const { t, i18n } = useTranslation(''); */
 
 /*   const toggleLanguage = (lang) => {
@@ -16,12 +16,26 @@ const Navbar = () => {
   }; */
 
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    console.log("onsearch", onSearch)
+    onSearch(e.target.value);
+  };
 
   return (
     <nav className="p-4 text-black">
       <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
         <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 md:h-20 rounded-full" /></Link>
         <FaSearch className="text-2xl"/>
+        <input
+          type="text"
+          placeholder="Search posts"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="p-2 rounded-lg" // Add your styling classes
+        />
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
           {!isOpen ? (
               <img src={hamburger} alt="Open menu" className="h-10 w-10" />
@@ -43,10 +57,5 @@ const Navbar = () => {
   );
 };
 
-export default function App() {
-  return (
-    <Suspense fallback="loading">
-      <Navbar/>
-    </Suspense>
-  );
-}
+export default Navbar;
+
