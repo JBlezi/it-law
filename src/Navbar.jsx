@@ -28,14 +28,16 @@ const Navbar = ({ onSearch }) => {
     <nav className="p-4 text-black">
       <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
         <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 md:h-20 rounded-full" /></Link>
-        <FaSearch className="text-2xl"/>
-        <input
-          type="text"
-          placeholder="Search posts"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="p-2 rounded-lg" // Add your styling classes
-        />
+        <div className="relative flex items-center">
+          <FaSearch className="absolute left-3 text-lg text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search posts"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none"
+          />
+        </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
           {!isOpen ? (
               <img src={hamburger} alt="Open menu" className="h-10 w-10" />
@@ -58,4 +60,3 @@ const Navbar = ({ onSearch }) => {
 };
 
 export default Navbar;
-
