@@ -19,5 +19,17 @@ export const fetchBlogPosts = async () => {
   }
 };
 
+export const fetchSocial = async () => {
+  try {
+    const response = await client.getEntries({
+      content_type: 'socialMedia', // Replace with your content type ID
+    });
+    return response.items;
+  } catch (error) {
+    console.error("Error fetching Social Media", error);
+    return [];
+  }
+};
+
 
 export default client;

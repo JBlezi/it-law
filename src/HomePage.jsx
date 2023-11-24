@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import EuKommission from './images/Eu-Kommission-PS3.png';
 import Button from './button';
 import Article from './Article';
+import Social from './Social';
 import RSSComponent from './RSSComponent';
-import { fetchBlogPosts } from './contentful';
+import { fetchBlogPosts, fetchSocial } from './contentful';
 
 
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const [socials, setSocials] = useState([]);
+
 
   useEffect(() => {
     const getPosts = async () => {
@@ -16,6 +19,12 @@ const HomePage = () => {
       setPosts(blogPosts);
     };
     getPosts();
+
+    const getSocials = async () => {
+      const socialMedia = await fetchSocial();
+      setSocials(socialMedia);
+    };
+    getSocials();
   },[]);
 
   const article1 = {
@@ -53,6 +62,14 @@ const HomePage = () => {
       <div className='mt-64'>
         {posts.map(post => (
           <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={article1.date} reading_time={article1.reading_time} content={post.fields.content}/>
+        ))}
+      </div>
+      <div className='mt-32 flex flex-wrap mx-8'>
+        <h2 className='text-grey text-xl underline'>FOLLOW US ON SOCIAL MEDIA</h2>
+        {socials.map(social => (
+          <div className='w-1/2' key={social.sys.id}>
+            <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
+          </div>
         ))}
       </div>
     </div>
