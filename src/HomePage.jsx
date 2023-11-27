@@ -4,7 +4,7 @@ import Article from './Article';
 import Social from './Social';
 import RSSComponent from './RSSComponent';
 import { fetchBlogPosts, fetchSocial } from './contentful';
-
+import { useTranslation } from 'react-i18next';
 
 
 const HomePage = () => {
@@ -12,6 +12,9 @@ const HomePage = () => {
   const [socials, setSocials] = useState([]);
   const titleRef = useRef(null); // Create a ref for the title element
   const [titleHeight, setTitleHeight] = useState(0);
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
 
   useEffect(() => {
     if (titleRef.current) {
@@ -24,7 +27,8 @@ const HomePage = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const blogPosts = await fetchBlogPosts();
+      console.log(currentLanguage)
+      const blogPosts = await fetchBlogPosts(currentLanguage === 'en' ? 'en-US' : 'de');
       setPosts(blogPosts);
     };
     getPosts();
@@ -34,7 +38,7 @@ const HomePage = () => {
       setSocials(socialMedia);
     };
     getSocials();
-  },[]);
+  },[currentLanguage]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -80,7 +84,7 @@ const HomePage = () => {
         ))}
       </div>
       <div className='mt-32 flex flex-wrap mx-8'>
-        <h2 className='text-grey text-xl underline'>FOLLOW US ON SOCIAL MEDIA</h2>
+        <h2 className='text-grey text-xl underline'>{t('home.social')}</h2>
         {socials.length > 0 && socials.map(social => (
           <div className='w-1/2' key={social.sys.id}>
             <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>

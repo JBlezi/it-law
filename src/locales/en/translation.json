@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "about": "ABOUT US",
+    "imprint": "IMPRINT",
+    "data": "DATA PROTECTION POLICY",
+    "search": "Search posts"
+  },
+  "home": {
+    "social": "FOLLOW US ON SOCIAL MEDIA"
+  }
+}

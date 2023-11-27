@@ -6,11 +6,11 @@ const client = createClient({
   accessToken: 'YTl7TJpfiW108aEjrJ94I2GuHXqeMw63RTG0TZMBsLE'
 });
 
-export const fetchBlogPosts = async () => {
+export const fetchBlogPosts = async (locale = 'en-US') => {
   try {
     const response = await client.getEntries({
-      content_type: 'blogPost', // Replace with your content type ID
-      // Add other options if needed (ordering, limit, etc.)
+      content_type: 'blogPost',
+      locale: locale, // Add locale parameter
     });
     return response.items;
   } catch (error) {

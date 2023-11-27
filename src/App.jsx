@@ -1,6 +1,7 @@
 import './App.css';
 import './index.css';
 import React, { useState, useEffect, Suspense } from 'react';
+import './i18n';
 import { fetchBlogPosts } from './contentful';
 import HomePage from './HomePage';
 import Imprint from './Imprint';

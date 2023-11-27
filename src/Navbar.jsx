@@ -6,20 +6,42 @@ import closingX from './images/ClosingX.svg';
 import { FaSearch } from 'react-icons/fa';
 import { fetchSocial } from "./contentful";
 import Social from "./Social";
+import { useTranslation } from 'react-i18next';
+
 
 const Navbar = ({ onSearch }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [socials, setSocials] = useState([]);
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+    localStorage.setItem('language', language);
+  };
+
+
+  const handleLanguageChange = (language, e) => {
+    e.stopPropagation(); // Prevents event from propagating to parent elements
+    changeLanguage(language);
+  };
+
 
   useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+
     const getSocials = async () => {
       const socialMedia = await fetchSocial();
       setSocials(socialMedia);
     };
     getSocials();
-  },[]);
+  },[i18n]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -37,11 +59,15 @@ const Navbar = ({ onSearch }) => {
         </div>
         <div className="text-2xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
-            <Link to="/home"><p>HOME</p></Link>
-            <Link to="/about-us"><p>ABOUT US</p></Link>
+          <div className="">
+            <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
+            <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
           </div>
-          <Link to="/imprint" className="mx-8"><p>IMPRINT</p></Link>
-          <Link to="/data-protection-policy" className="mx-8"><p>DATA PROTECTION POLICY</p></Link>
+            <Link to="/home"><p>HOME</p></Link>
+            <Link to="/about-us"><p>{t('navbar.about')}</p></Link>
+          </div>
+          <Link to="/imprint" className="mx-8"><p>{t('navbar.imprint')}</p></Link>
+          <Link to="/data-protection-policy" className="mx-8"><p>{t('navbar.data')}</p></Link>
           <div className='mt-32 flex flex-wrap mx-8'>
             {socials.length > 0 && socials.map(social => (
               <div className='w-1/2' key={social.sys.id}>
@@ -62,7 +88,7 @@ const Navbar = ({ onSearch }) => {
           <FaSearch className="absolute left-3 text-lg text-gray-400" />
           <input
             type="text"
-            placeholder="Search posts"
+            placeholder={t('navbar.search')}
             value={searchQuery}
             onChange={handleSearchChange}
             className="pl-10 pr-3 py-3 rounded-lg focus:border-blue-500 focus:outline-none"
