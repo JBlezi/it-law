@@ -5,6 +5,7 @@ import { fetchBlogPosts } from './contentful';
 import HomePage from './HomePage';
 import Imprint from './Imprint';
 import DataProtectionPolicy from './DataProtectionPolicy';
+import AboutUs from './AboutUs';
 import Navbar from './Navbar';
 import Article from './Article';
 import Footer from './Footer';
@@ -56,6 +57,7 @@ function App() {
               <Route path="/home" element={<HomePage />}/>
               <Route path="/imprint" element={<Imprint />}/>
               <Route path="/data-protection-policy" element={<DataProtectionPolicy />}/>
+              <Route path="/about-us" element={<AboutUs />}/>
             </Routes>
           )}
         </Suspense>
