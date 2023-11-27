@@ -52,7 +52,7 @@ const Navbar = ({ onSearch }) => {
   const MenuModal = () => {
 
     return (
-      <div className="fixed inset-0 z-50 bg-light p-5 w-full h-screen">
+      <div className="fixed inset-0 z-50 bg-light dark:bg-grey p-5 w-full h-screen">
         <div className="flex justify-between">
           <img src={logo} alt="Close menu" className="h-16 w-16"/>
           <img src={closingX} alt="Close menu" className="h-8 w-8 m-4"/>

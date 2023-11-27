@@ -14,7 +14,6 @@ const HomePage = () => {
   const [titleHeight, setTitleHeight] = useState(0);
   const { t } = useTranslation();
   const { i18n } = useTranslation();
-  const currentLanguage = i18n.language;
 
   useEffect(() => {
     if (titleRef.current) {
@@ -26,9 +25,13 @@ const HomePage = () => {
 
 
   useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
     const getPosts = async () => {
-      console.log(currentLanguage)
-      const blogPosts = await fetchBlogPosts(currentLanguage === 'en' ? 'en-US' : 'de');
+      console.log("Fetching posts for language:", savedLanguage);
+       const blogPosts = await fetchBlogPosts(savedLanguage === 'de' ? 'de' : 'en-US');
       setPosts(blogPosts);
     };
     getPosts();
@@ -38,7 +41,8 @@ const HomePage = () => {
       setSocials(socialMedia);
     };
     getSocials();
-  },[currentLanguage]);
+  }, [i18n.language]); // Dependency on currentLanguage
+
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -71,7 +75,7 @@ const HomePage = () => {
           <h1 className='text-4xl font-bold mb-4' ref={titleRef}>{ posts.length > 0 ? posts[0].fields.title : ""}</h1>
           <h2 className='text-xl font-medium mb-4'>by <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[0] : ""},</span> <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[1] : ""} </span>| { posts.length > 0 ? formatDate(posts[0].sys.createdAt) : ""}| {posts.length > 0 ? `${calculateReadingTime(posts[0].fields.content)} min read` : ""}</h2>
           <p className='text-2xl font-medium mb-8 line-clamp-3'>{ posts.length > 0 ? posts[0].fields.content : ""}</p>
-          <Button color='main' link='/home' text='READ MORE'/>
+          <Button color='main' link='/home' text={t('home.button')}/>
           <div className='h-[28rem] bg-white p-8 my-8 rounded-lg shadow-lg'>
             <h2 className='text-grey underline'>NEWS</h2>
             <RSSComponent></RSSComponent>
