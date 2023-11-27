@@ -68,7 +68,7 @@ const HomePage = () => {
 
 
   return (
-    <div>
+    <div className=''>
       <div style={backgroundStyle} className='h-[80vh] relative'>
         <div className='absolute inset-0 bg-black bg-opacity-50'></div>
         <div className='mx-8 relative pt-12'>
@@ -76,8 +76,8 @@ const HomePage = () => {
           <h2 className='text-xl font-medium mb-4'>by <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[0] : ""},</span> <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[1] : ""} </span>| { posts.length > 0 ? formatDate(posts[0].sys.createdAt) : ""}| {posts.length > 0 ? `${calculateReadingTime(posts[0].fields.content)} min read` : ""}</h2>
           <p className='text-2xl font-medium mb-8 line-clamp-3'>{ posts.length > 0 ? posts[0].fields.content : ""}</p>
           <Button color='main' link='/home' text={t('home.button')}/>
-          <div className='h-[28rem] bg-white p-8 my-8 rounded-lg shadow-lg'>
-            <h2 className='text-grey underline'>NEWS</h2>
+          <div className='h-[28rem] bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey'>
+            <h2 className='text-grey underline dark:text-light'>NEWS</h2>
             <RSSComponent></RSSComponent>
           </div>
         </div>
@@ -88,7 +88,7 @@ const HomePage = () => {
         ))}
       </div>
       <div className='mt-32 flex flex-wrap mx-8'>
-        <h2 className='text-grey text-xl underline'>{t('home.social')}</h2>
+        <h2 className='text-grey dark:text-light text-xl underline'>{t('home.social')}</h2>
         {socials.length > 0 && socials.map(social => (
           <div className='w-1/2' key={social.sys.id}>
             <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>

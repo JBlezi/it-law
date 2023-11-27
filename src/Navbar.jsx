@@ -52,7 +52,7 @@ const Navbar = ({ onSearch }) => {
   const MenuModal = () => {
 
     return (
-      <div className="fixed inset-0 z-50 bg-light dark:bg-grey p-5 w-full h-screen">
+      <div className="fixed inset-0 z-50 bg-light dark:bg-grey dark:text-light p-5 w-full h-screen">
         <div className="flex justify-between">
           <img src={logo} alt="Close menu" className="h-16 w-16"/>
           <img src={closingX} alt="Close menu" className="h-8 w-8 m-4"/>
@@ -85,13 +85,13 @@ const Navbar = ({ onSearch }) => {
       <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
         <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 md:h-20 rounded-full" /></Link>
         <div className="relative flex items-center">
-          <FaSearch className="absolute left-3 text-lg text-gray-400" />
+          <FaSearch className="absolute left-3 text-lg text-gray-400 dark:text-light" />
           <input
             type="text"
             placeholder={t('navbar.search')}
             value={searchQuery}
             onChange={handleSearchChange}
-            className="pl-10 pr-3 py-3 rounded-lg focus:border-blue-500 focus:outline-none"
+            className="pl-10 pr-3 py-3 rounded-lg focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
           />
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
