@@ -8,14 +8,6 @@ import { fetchSocial } from "./contentful";
 import Social from "./Social";
 
 const Navbar = ({ onSearch }) => {
-  /*   const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem("lng") || 'de');
-  const { t, i18n } = useTranslation(''); */
-
-/*   const toggleLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
-    localStorage.setItem("lng", lang)
-  }; */
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,16 +32,16 @@ const Navbar = ({ onSearch }) => {
     return (
       <div className="fixed inset-0 z-50 bg-light p-5 w-full h-screen">
         <div className="flex justify-between">
-          <img src={logo} alt="Close menu" className="h-12 w-12"/>
-          <img src={closingX} alt="Close menu" className="h-8 w-8"/>
+          <img src={logo} alt="Close menu" className="h-16 w-16"/>
+          <img src={closingX} alt="Close menu" className="h-8 w-8 m-4"/>
         </div>
         <div className="text-2xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
-          <div className="mb-32 flex flex-col items-end space-y-8 mr-8">
+          <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
             <Link to="/home"><p>HOME</p></Link>
             <Link to="/about-us"><p>ABOUT US</p></Link>
           </div>
-          <Link to="/imprint" className="mr-8"><p>IMPRINT</p></Link>
-          <Link to="/data-protection-policy" className="mr-8"><p>DATA PROTECTION POLICY</p></Link>
+          <Link to="/imprint" className="mx-8"><p>IMPRINT</p></Link>
+          <Link to="/data-protection-policy" className="mx-8"><p>DATA PROTECTION POLICY</p></Link>
           <div className='mt-32 flex flex-wrap mx-8'>
             {socials.length > 0 && socials.map(social => (
               <div className='w-1/2' key={social.sys.id}>
@@ -83,15 +75,6 @@ const Navbar = ({ onSearch }) => {
               <MenuModal />
             )}
         </div>
-{/*         <div className='wrap flex flex-row'>
-          <div className='fill-wrap'>
-            <div className="flex flex-row mx-4 text-xl md:text-2xl">
-              <button onClick={() => toggleLanguage('en')} className={currentLanguage === 'en' ? 'active' : ''}>EN<span style={{color: 'black'}}>/</span></button>
-              <button onClick={() => toggleLanguage('de')} className={currentLanguage === 'de' ? 'active' : ''}>DE</button>
-            </div>
-            <a href='mailto:ra@biernath.com' className='btn btn-desert btn-b-t md:p-6 p-3 text-xl md:text-3xl rounded-full'>{t('navbar.contact')}</a>
-          </div>
-        </div> */}
       </div>
     </nav>
   );
