@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import logo from './images/biernath.com.favicon.png';
 import hamburger from './images/hamburger.svg';
 import closingX from './images/ClosingX.svg';
 import { FaSearch } from 'react-icons/fa';
+import { fetchSocial } from "./contentful";
+import Social from "./Social";
 
 const Navbar = ({ onSearch }) => {
   /*   const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem("lng") || 'de');
@@ -17,11 +19,47 @@ const Navbar = ({ onSearch }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [socials, setSocials] = useState([]);
+
+  useEffect(() => {
+    const getSocials = async () => {
+      const socialMedia = await fetchSocial();
+      setSocials(socialMedia);
+    };
+    getSocials();
+  },[]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     console.log("onsearch", onSearch)
     onSearch(e.target.value);
+  };
+
+  const MenuModal = () => {
+
+    return (
+      <div className="fixed inset-0 z-50 bg-light p-5 w-full h-screen">
+        <div className="flex justify-between">
+          <img src={logo} alt="Close menu" className="h-12 w-12"/>
+          <img src={closingX} alt="Close menu" className="h-8 w-8"/>
+        </div>
+        <div className="text-2xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
+          <div className="mb-32 flex flex-col items-end space-y-8 mr-8">
+            <Link to="/home"><p>HOME</p></Link>
+            <Link to="/about-us"><p>ABOUT US</p></Link>
+          </div>
+          <Link to="/imprint" className="mr-8"><p>IMPRINT</p></Link>
+          <Link to="/data-protection-policy" className="mr-8"><p>DATA PROTECTION POLICY</p></Link>
+          <div className='mt-32 flex flex-wrap mx-8'>
+            {socials.length > 0 && socials.map(social => (
+              <div className='w-1/2' key={social.sys.id}>
+                <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -42,8 +80,8 @@ const Navbar = ({ onSearch }) => {
           {!isOpen ? (
               <img src={hamburger} alt="Open menu" className="h-10 w-10" />
           ) : (
-              <img src={closingX} alt="Close menu" className="h-10 w-10" />
-          )}
+              <MenuModal />
+            )}
         </div>
 {/*         <div className='wrap flex flex-row'>
           <div className='fill-wrap'>
