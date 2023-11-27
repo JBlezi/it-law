@@ -3,6 +3,8 @@ import './index.css';
 import React, { useState, useEffect, Suspense } from 'react';
 import { fetchBlogPosts } from './contentful';
 import HomePage from './HomePage';
+import Imprint from './Imprint';
+import DataProtectionPolicy from './DataProtectionPolicy';
 import Navbar from './Navbar';
 import Article from './Article';
 import Footer from './Footer';
@@ -52,7 +54,8 @@ function App() {
           ) : (
             <Routes>
               <Route path="/home" element={<HomePage />}/>
-              {/* Other routes here */}
+              <Route path="/imprint" element={<Imprint />}/>
+              <Route path="/data-protection-policy" element={<DataProtectionPolicy />}/>
             </Routes>
           )}
         </Suspense>
