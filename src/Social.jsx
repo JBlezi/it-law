@@ -7,8 +7,8 @@ const Social = (props) => {
 
 
   return (
-    <div className='text-grey my-16 mx-4'>
-      <a href={link} target='_blank'>
+    <div className='text-grey my-16 mx-8'>
+      <a href={link} target='_blank' rel='noreferrer'>
         <div className='p-8 rounded-lg bg-white'>
           <img src={image} alt={title} className=' object-cover'/>
         </div>

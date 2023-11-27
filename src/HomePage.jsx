@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import EuKommission from './images/Eu-Kommission-PS3.png';
 import Button from './button';
 import Article from './Article';
 import Social from './Social';
@@ -82,7 +81,7 @@ const HomePage = () => {
       </div>
       <div className='mt-32 flex flex-wrap mx-8'>
         <h2 className='text-grey text-xl underline'>FOLLOW US ON SOCIAL MEDIA</h2>
-        {socials.map(social => (
+        {socials.length > 0 && socials.map(social => (
           <div className='w-1/2' key={social.sys.id}>
             <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
           </div>

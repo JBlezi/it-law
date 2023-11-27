@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { Link } from 'react-router-dom';
 import logo from './images/biernath.com.favicon.png';
 import hamburger from './images/hamburger.svg';
@@ -35,7 +35,7 @@ const Navbar = ({ onSearch }) => {
             placeholder="Search posts"
             value={searchQuery}
             onChange={handleSearchChange}
-            className="pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none"
+            className="pl-10 pr-3 py-3 rounded-lg focus:border-blue-500 focus:outline-none"
           />
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">

@@ -5,6 +5,7 @@ import { fetchBlogPosts } from './contentful';
 import HomePage from './HomePage';
 import Navbar from './Navbar';
 import Article from './Article';
+import Footer from './Footer';
 import {
   BrowserRouter as Router,
   Routes,
@@ -55,6 +56,7 @@ function App() {
             </Routes>
           )}
         </Suspense>
+        <Footer />
       </div>
     </Router>
   );
