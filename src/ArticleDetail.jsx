@@ -13,7 +13,7 @@ const ArticleDetail = () => {
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="mb-8 text-lg">{children}</p>
+        <p className="mb-8 text-xl">{children}</p>
       ),
       // Add other node type renderers if needed
     },
@@ -26,7 +26,6 @@ const ArticleDetail = () => {
       const savedLanguage = localStorage.getItem('language') || i18n.language;
       const locale = savedLanguage === 'de' ? 'de' : 'en-US';
       const fetchedArticle = await fetchPost(articleId, locale);
-      console.log("format", fetchedArticle.fields.formattedContent.content[0].content[0].value)
       setArticle(fetchedArticle);
     };
 

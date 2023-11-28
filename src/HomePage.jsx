@@ -6,59 +6,56 @@ import RSSComponent from './RSSComponent';
 import { fetchBlogPosts, fetchSocial } from './contentful';
 import { useTranslation } from 'react-i18next';
 
-
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [socials, setSocials] = useState([]);
-  const titleRef = useRef(null); // Create a ref for the title element
+  const titleRef = useRef(null);
   const [titleHeight, setTitleHeight] = useState(0);
-  const { t } = useTranslation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const cacheDuration = 3600000; // 1 hour in milliseconds
 
   useEffect(() => {
     if (titleRef.current) {
-      const height = titleRef.current.offsetHeight; // Get the height of the title element
-      setTitleHeight(height); // Set the state with the height
+      setTitleHeight(titleRef.current.offsetHeight);
     }
-  }, [posts]); // Depend on posts so it recalculates when posts data changes
+  }, [posts]);
 
+  const fetchAndCacheContent = async (key, fetchFunction, setState, language) => {
+    const now = new Date();
+    const cachedContent = localStorage.getItem(key);
+    if (cachedContent) {
+      const { timestamp, data } = JSON.parse(cachedContent);
+      if (now.getTime() - timestamp < cacheDuration) {
+        setState(data);
+        return;
+      }
+    }
 
+    const fetchedData = await fetchFunction(language);
+    localStorage.setItem(key, JSON.stringify({ timestamp: now.getTime(), data: fetchedData }));
+    setState(fetchedData);
+  };
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language');
+    const savedLanguage = localStorage.getItem('language') || i18n.language;
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
     }
-    const getPosts = async () => {
-      console.log("Fetching posts for language:", savedLanguage);
-       const blogPosts = await fetchBlogPosts(savedLanguage === 'de' ? 'de' : 'en-US');
-      setPosts(blogPosts);
-    };
-    getPosts();
 
-    const getSocials = async () => {
-      const socialMedia = await fetchSocial();
-      setSocials(socialMedia);
-    };
-    getSocials();
-  }, [i18n.language]); // Dependency on currentLanguage
-
+    fetchAndCacheContent('blogPostsCache', fetchBlogPosts, setPosts, savedLanguage === 'de' ? 'de' : 'en-US');
+    fetchAndCacheContent('socialMediaCache', fetchSocial, setSocials, savedLanguage === 'de' ? 'de' : 'en-US');
+  }, [i18n.language]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
+    return `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
   };
 
   const calculateReadingTime = (content) => {
-    const wordsPerMinute = 200; // Average reading speed
-    const textLength = content.split(/\s+/).length; // Split by whitespace and count
-    const readingTime = Math.ceil(textLength / wordsPerMinute);
-    return readingTime;
+    const wordsPerMinute = 200;
+    const textLength = content.split(/\s+/).length;
+    return `${Math.ceil(textLength / wordsPerMinute)} min read`;
   };
-
 
   const backgroundStyle = posts.length > 0 ? {
     backgroundImage: `url(${posts[0].fields.image.fields.file.url})`,
