@@ -84,7 +84,7 @@ const HomePage = () => {
       </div>
       <div style={{ marginTop: titleHeight + 100 }}>
         {posts.map(post => (
-          <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={`${calculateReadingTime(post.fields.content)} min read`} content={post.fields.content}/>
+          <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={`${calculateReadingTime(post.fields.content)} min read`} content={post.fields.content}/>
         ))}
       </div>
       <div className='mt-32 flex flex-wrap mx-8'>

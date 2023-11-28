@@ -9,6 +9,7 @@ import DataProtectionPolicy from './DataProtectionPolicy';
 import AboutUs from './AboutUs';
 import Navbar from './Navbar';
 import Article from './Article';
+import ArticleDetail from './ArticleDetail';
 import Footer from './Footer';
 import { useTranslation } from 'react-i18next';
 import {
@@ -76,6 +77,7 @@ function App() {
               <Route path="/imprint" element={<Imprint />}/>
               <Route path="/data-protection-policy" element={<DataProtectionPolicy />}/>
               <Route path="/about-us" element={<AboutUs />}/>
+              <Route path="/article/:articleId" element={<ArticleDetail />}/>
             </Routes>
           )}
         </Suspense>

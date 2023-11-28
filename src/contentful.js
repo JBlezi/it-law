@@ -19,6 +19,23 @@ export const fetchBlogPosts = async (locale = 'en-US') => {
   }
 };
 
+export const getLocalizedEntry = (entryId, locale) => {
+  return client.getEntry(entryId, {
+    locale: locale
+  });
+}
+
+export const fetchPost = async (entryId, locale = 'en-US') => {
+  try {
+    return await client.getEntry(entryId, {
+      locale: locale
+    });
+  } catch (error) {
+    console.error("Error fetching blog post", error);
+    return [];
+  }
+};
+
 export const fetchSocial = async () => {
   try {
     const response = await client.getEntries({
