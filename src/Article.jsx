@@ -8,7 +8,7 @@ const Article = (props) => {
   const authors = props.authors;
   const link = props.link;
   const date = props.date || 1;
-  const reading_time = props.reading_time || 3;
+  const reading_time = props.reading_time;
   const content = props.content;
   const { t } = useTranslation();
 

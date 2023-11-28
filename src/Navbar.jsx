@@ -94,7 +94,7 @@ const Navbar = ({ onSearch }) => {
             placeholder={t('navbar.search')}
             value={searchQuery}
             onChange={handleSearchChange}
-            className="pl-10 pr-3 py-3 rounded-lg focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
+            className="pl-10 pr-3 py-3 rounded-lg dark:text-light focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
           />
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
