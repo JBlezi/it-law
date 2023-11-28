@@ -19,18 +19,28 @@ import {
 } from "react-router-dom";
 
 function App() {
+  const [postsDE, setPostsDE] = useState([]);
+  const [filteredPostsDE, setFilteredPostsDE] = useState([]);
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [isSearching, setIsSearching] = useState(false); // New state for search activity
   const { i18n } = useTranslation();
+  const currentLanguage = localStorage.getItem('language') || i18n.language;
 
   useEffect(() => {
     const getPosts = async () => {
-      const blogPosts = await fetchBlogPosts();
+      const blogPosts = await fetchBlogPosts('en-US');
       setPosts(blogPosts);
       setFilteredPosts(blogPosts); // Initially, filteredPosts is the same as all posts
     };
     getPosts();
+
+    const getPostsDE = async () => {
+      const blogPosts = await fetchBlogPosts('de');
+      setPostsDE(blogPosts);
+      setFilteredPostsDE(blogPosts); // Initially, filteredPosts is the same as all posts
+    };
+    getPostsDE();
 
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
@@ -52,11 +62,19 @@ function App() {
     setIsSearching(query.length > 0); // Update isSearching based on query length
 
     const lowercasedQuery = query.toLowerCase();
-    const filtered = posts.filter(post =>
-      post.fields.title.toLowerCase().includes(lowercasedQuery)
-      // Add other fields you want to include in the search
-    );
-    setFilteredPosts(filtered);
+    if (currentLanguage !== 'de') {
+      const filtered = posts.filter(post =>
+        post.fields.title.toLowerCase().includes(lowercasedQuery)
+        // Add other fields you want to include in the search
+      );
+      setFilteredPosts(filtered);
+    } else {
+      const filtered = postsDE.filter(post =>
+        post.fields.title.toLowerCase().includes(lowercasedQuery)
+        // Add other fields you want to include in the search
+      );
+      setFilteredPostsDE(filtered);
+    }
   };
 
 
@@ -67,9 +85,11 @@ function App() {
         <Suspense fallback="loading">
           {isSearching ? (
             <div className='mt-16'>
-              {filteredPosts.map(post => (
+              { currentLanguage !== 'de' ? (filteredPosts.map(post => (
                 <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
-              ))}
+              ))) : (filteredPostsDE.map(post => (
+                <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
+              )))}
             </div>
           ) : (
             <Routes>
