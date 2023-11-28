@@ -13,7 +13,6 @@ const HomePage = () => {
   const titleRef = useRef(null);
   const titleRef2 = useRef(null);
   const titleRef3 = useRef(null);
-  const [titleHeight, setTitleHeight] = useState(0);
   const { t, i18n } = useTranslation();
   const cacheDuration = 3600000; // 1 hour in milliseconds
 
@@ -36,7 +35,9 @@ const HomePage = () => {
     const cachedContent = localStorage.getItem(key);
     if (cachedContent) {
       const { timestamp, data } = JSON.parse(cachedContent);
-      if (now.getTime() - timestamp < cacheDuration) {
+      console.log(data[0].sys.locale);
+      console.log(language);
+      if ((now.getTime() - timestamp < cacheDuration) && (data[0].sys.locale === language) ) {
         setState(data);
         return;
       }

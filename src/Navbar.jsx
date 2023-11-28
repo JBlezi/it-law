@@ -22,8 +22,8 @@ const Navbar = ({ onSearch }) => {
   const isDarkMode = () => document.documentElement.classList.contains('dark');
 
   const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
     localStorage.setItem('language', language);
+    i18n.changeLanguage(language);
   };
 
 
