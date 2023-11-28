@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import logo from './images/biernath.com.favicon.png';
 import hamburger from './images/hamburger.svg';
+import hamburgerWhite from './images/hamburgerSvg-white.svg'
+import closingXWhite from './images/closingX-white.svg'
 import closingX from './images/ClosingX.svg';
 import { FaSearch } from 'react-icons/fa';
 import { fetchSocial } from "./contentful";
@@ -17,6 +19,7 @@ const Navbar = ({ onSearch }) => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
+  const isDarkMode = () => document.documentElement.classList.contains('dark');
 
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
@@ -54,8 +57,8 @@ const Navbar = ({ onSearch }) => {
     return (
       <div className="fixed inset-0 z-50 bg-light dark:bg-grey dark:text-light p-5 w-full h-screen">
         <div className="flex justify-between">
-          <img src={logo} alt="Close menu" className="h-16 w-16"/>
-          <img src={closingX} alt="Close menu" className="h-8 w-8 m-4"/>
+          <img src={logo} alt="Biernath Legal Logo" className="h-16 w-16"/>
+          <img src={isDarkMode() ? closingXWhite : closingX} alt="Close menu" className="h-8 w-8 m-4"/>
         </div>
         <div className="text-2xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
@@ -96,7 +99,7 @@ const Navbar = ({ onSearch }) => {
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
           {!isOpen ? (
-              <img src={hamburger} alt="Open menu" className="h-10 w-10" />
+            <img src={isDarkMode() ? hamburgerWhite : hamburger} alt="Open menu" className="h-10 w-10" />
           ) : (
               <MenuModal />
             )}

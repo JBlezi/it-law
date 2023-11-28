@@ -57,7 +57,7 @@ const RSSComponent = () => {
         <div key={index} className='my-4 py-4 px-4 bg-grey rounded-lg'>
           <a href={article.link} target="_blank" rel="noopener noreferrer">
             <h3 className='line-clamp-2'>{article.title}</h3>
-            <p className='text-main'>{article.feedTitle}</p>
+            <p className='text-main line-clamp-1'>{article.feedTitle}</p>
           </a>
         </div>
       ))}

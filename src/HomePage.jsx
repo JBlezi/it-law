@@ -72,14 +72,14 @@ const HomePage = () => {
           <h1 className='text-4xl font-bold mb-4' ref={titleRef}>{ posts.length > 0 ? posts[0].fields.title : ""}</h1>
           <h2 className='text-xl font-medium mb-4'>by <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[0] : ""},</span> <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[1] : ""} </span>| { posts.length > 0 ? formatDate(posts[0].sys.createdAt) : ""}| {posts.length > 0 ? `${calculateReadingTime(posts[0].fields.content)} min read` : ""}</h2>
           <p className='text-2xl font-medium mb-8 line-clamp-3'>{ posts.length > 0 ? posts[0].fields.content : ""}</p>
-          <Button color='main' link='/home' text={t('home.button')}/>
+          <Button color='main' link={ posts.length > 0 ? `/article/${posts[0].sys.id}` : ""} text={t('home.button')}/>
           <div className='h-[28rem] bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey'>
             <h2 className='text-grey underline dark:text-light'>NEWS</h2>
             <RSSComponent></RSSComponent>
           </div>
         </div>
       </div>
-      <div style={{ marginTop: titleHeight + 100 }}>
+      <div style={{ marginTop: titleHeight + 110 }}>
         {posts.map(post => (
           <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={`${calculateReadingTime(post.fields.content)} min read`} content={post.fields.content}/>
         ))}
