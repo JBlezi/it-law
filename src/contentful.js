@@ -19,6 +19,20 @@ export const fetchBlogPosts = async (locale = 'en-US') => {
   }
 };
 
+export const fetchBlogPostsByCategory = async (locale = 'en-US', category) => {
+  try {
+    const response = await client.getEntries({
+      content_type: 'blogPost',
+      locale: locale, // Add locale parameter
+      categories: category
+    });
+    return response.items;
+  } catch (error) {
+    console.error("Error fetching blog posts", error);
+    return [];
+  }
+};
+
 export const getLocalizedEntry = (entryId, locale) => {
   return client.getEntry(entryId, {
     locale: locale
