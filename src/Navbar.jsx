@@ -44,22 +44,22 @@ const Navbar = ({ onSearch }) => {
     };
 
     return (
-      <div className="relative inline-block text-left">
-        <div>
-          <button type="button" onClick={toggleDropdown} className="inline-flex justify-center w-full px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
-            Categories
-            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <div className="inline-block text-left w-full">
+        <div className="w-full">
+          <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-4xl font-medium text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
+            CATEGORIES
+            <svg className="-mr-1 ml-2 h-10 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </button>
         </div>
 
         {isOpen && (
-          <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+          <div className="right-0 mt-2 text-light bg-grey" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
             <div className="py-1" role="none">
               {categories.map((category, index) => (
-                <Link key={index} to={`/category/${category}`} className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
-                  {category}
+                <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-2xl hover:bg-gray-100 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                  {category.toUpperCase()}
                 </Link>
               ))}
             </div>
@@ -103,7 +103,7 @@ const Navbar = ({ onSearch }) => {
           <img src={logo} alt="Biernath Legal Logo" className="h-16 w-16"/>
           <img src={isDarkMode() ? closingXWhite : closingX} alt="Close menu" className="h-8 w-8 m-4"/>
         </div>
-        <div className="text-2xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
+        <div className="text-2xl md:text-4xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
           {!isCategoryPage && (
               <div className="">
@@ -117,9 +117,9 @@ const Navbar = ({ onSearch }) => {
           </div>
           <Link to="/imprint" className="mx-8"><p>{t('navbar.imprint')}</p></Link>
           <Link to="/data-protection-policy" className="mx-8"><p>{t('navbar.data')}</p></Link>
-          <div className='mt-32 flex flex-wrap mx-8'>
+          <div className='mt-32 flex flex-wrap justify-end mx-8'>
             {socials.length > 0 && socials.map(social => (
-              <div className='w-1/2' key={social.sys.id}>
+              <div className='w-1/2 md:w-1/4' key={social.sys.id}>
                 <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
               </div>
             ))}
@@ -132,15 +132,15 @@ const Navbar = ({ onSearch }) => {
   return (
     <nav className="p-4 text-black">
       <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
-        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 md:h-20 rounded-full" /></Link>
-        <div className="relative flex items-center">
+        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-16 rounded-full" /></Link>
+        <div className="relative flex items-center md:w-2/3 md:mx-8">
           <FaSearch className="absolute left-3 text-lg text-gray-400 dark:text-light" />
           <input
             type="text"
             placeholder={t('navbar.search')}
             value={searchQuery}
             onChange={handleSearchChange}
-            className="pl-10 pr-3 py-3 rounded-lg dark:text-light focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
+            className="pl-10 pr-3 py-3 rounded-lg dark:text-light md:w-full focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
           />
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">

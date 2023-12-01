@@ -15,7 +15,7 @@ const Article = (props) => {
 
   return (
     <div className='mx-8 text-grey dark:text-light my-16'>
-      <h2 className='text-2xl font-bold mb-4'>{header}</h2>
+      <h2 className='text-2xl md:text-4xl font-bold mb-4'>{header}</h2>
       <img src={image} alt="" className='aspect-video object-cover mb-4'/>
       <h3 className='text-xl font-medium mb-4'>by <span className='underline'>{authors[0]},</span> <span className='underline'>{authors[1]}</span>| {date} | {reading_time} </h3>
       <p className='text-2xl font-medium mb-8 line-clamp-3'>{content}</p>
