@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from './images/biernath.com.favicon.png';
 import hamburger from './images/hamburger.svg';
 import hamburgerWhite from './images/hamburgerSvg-white.svg'
@@ -19,6 +19,8 @@ const Navbar = ({ onSearch }) => {
   const [categories, setCategories] = useState([]);
   const { t } = useTranslation();
   const { i18n } = useTranslation();
+  const location = useLocation();
+  const isCategoryPage = location.pathname.includes('/category');
   const currentLanguage = i18n.language;
   const isDarkMode = () => document.documentElement.classList.contains('dark');
 
@@ -69,7 +71,7 @@ const Navbar = ({ onSearch }) => {
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage) {
+    if (savedLanguage === "de" ? "de" : "en-US") {
       i18n.changeLanguage(savedLanguage);
     }
 
@@ -80,18 +82,16 @@ const Navbar = ({ onSearch }) => {
     getSocials();
 
     const getCategories = async () => {
-      const blogPosts = await fetchBlogPosts(i18n.language);
+      const blogPosts = await fetchBlogPosts(savedLanguage === "de" ? "de" : "en-US");
       const allCategories = blogPosts.flatMap(post => post.fields.categories);
       const uniqueCategories = Array.from(new Set(allCategories));
-      console.log("unique categories", uniqueCategories);
       setCategories(uniqueCategories);
     };
     getCategories();
-  },[i18n]);
+  },[i18n.language]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    console.log("onsearch", onSearch)
     onSearch(e.target.value);
   };
 
@@ -105,10 +105,12 @@ const Navbar = ({ onSearch }) => {
         </div>
         <div className="text-2xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
-          <div className="">
-            <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
-            <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
-          </div>
+          {!isCategoryPage && (
+              <div className="">
+                <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
+                <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
+              </div>
+            )}
             <Link to="/home"><p>HOME</p></Link>
             <Link to="/about-us"><p>{t('navbar.about')}</p></Link>
             <CategoriesDropdown categories={categories}></CategoriesDropdown>

@@ -35,9 +35,11 @@ const HomePage = () => {
     const cachedContent = localStorage.getItem(key);
     if (cachedContent) {
       const { timestamp, data } = JSON.parse(cachedContent);
-      if ((now.getTime() - timestamp < cacheDuration) && (data[0].sys.locale === language) ) {
-        setState(data);
-        return;
+      if (data && data.length > 0 && (now.getTime() - timestamp < cacheDuration)) {
+        if (data[0].sys && data[0].sys.locale === language) {
+          setState(data);
+          return;
+        }
       }
     }
 

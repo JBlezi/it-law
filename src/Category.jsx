@@ -3,13 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { fetchBlogPostsByCategory } from './contentful';
+import { fetchBlogPosts } from './contentful';
 import Article from './Article';
 
 const ArticleDetail = () => {
   const [posts, setPosts] = useState([]);
   const { i18n } = useTranslation();
-  const cacheDuration = 3600000; // 1 hour in milliseconds
   const { category } = useParams();
 
   const options = {
@@ -22,22 +21,15 @@ const ArticleDetail = () => {
     // You can also define custom renderers for marks, if necessary
   };
 
-  const fetchAndCacheContent = async (key, fetchFunction, setState, language) => {
-    const now = new Date();
-    const cachedContent = localStorage.getItem(key);
-    if (cachedContent) {
-      const { timestamp, data } = JSON.parse(cachedContent);
-      console.log(data[0].sys.locale);
-      console.log(language);
-      if ((now.getTime() - timestamp < cacheDuration) && (data[0].sys.locale === language) ) {
-        setState(data);
-        return;
-      }
-    }
+  const fetchContent = async (fetchFunction, setState, language) => {
 
-    const fetchedData = await fetchFunction(language, category);
-    localStorage.setItem(key, JSON.stringify({ timestamp: now.getTime(), data: fetchedData }));
-    setState(fetchedData);
+    const fetchedData = await fetchFunction(language);
+    console.log(fetchedData);
+    const filteredPosts = fetchedData.filter(post =>
+      post.fields.categories && post.fields.categories.includes(category)
+    );
+    console.log(filteredPosts)
+    setState(filteredPosts);
   };
 
   useEffect(() => {
@@ -46,8 +38,8 @@ const ArticleDetail = () => {
       i18n.changeLanguage(savedLanguage);
     }
 
-    fetchAndCacheContent('blogPostsCache', fetchBlogPostsByCategory, setPosts, savedLanguage === 'de' ? 'de' : 'en-US');
-  }, [i18n.language]);
+    fetchContent(fetchBlogPosts, setPosts, savedLanguage === 'de' ? 'de' : 'en-US');
+  }, [i18n.language, category]);
 
 
   const formatDate = (dateString) => {
