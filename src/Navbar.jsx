@@ -44,9 +44,9 @@ const Navbar = ({ onSearch }) => {
     };
 
     return (
-      <div className="inline-block text-left w-full xl:mr-8 xl:relative">
+      <div className="inline-block text-left w-full xl:mr-8 relative">
         <div className="w-full">
-          <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-4xl xl:text-2xl xl:font-base font-medium text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
+          <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-2xl md:text-4xl xl:text-2xl xl:font-base font-medium text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
             CATEGORIES
             <svg className="-mr-1 ml-2 h-10 w-10 xl:h-8 xl:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -55,20 +55,20 @@ const Navbar = ({ onSearch }) => {
         </div>
 
         {isOpen && (
-          <div>
-            <div className="right-0 mt-2 text-light bg-grey xl:hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+          <div className="max-h-32">
+            <div className="right-0 mt-2 text-light bg-grey absolute z-20 xl:hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
               <div className="py-1" role="none">
                 {categories.map((category, index) => (
-                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-2xl hover:bg-gray-100 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-100 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
                     {category.toUpperCase()}
                   </Link>
                 ))}
               </div>
             </div>
-            <div className="right-0 mt-2 text-light bg-grey absolute z-20 rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+            <div className="right-0 mt-2 text-light bg-grey absolute z-20 hidden xl:block rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
               <div className="py-1" role="none">
                 {categories.map((category, index) => (
-                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-2xl hover:bg-gray-900 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-900 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
                     {category.toUpperCase()}
                   </Link>
                 ))}
