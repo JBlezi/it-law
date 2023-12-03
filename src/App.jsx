@@ -109,7 +109,7 @@ function App() {
         <div className='max'>
           <Navbar onSearch={handleSearch}/>
           {isSearching && (
-            <div className="fixed inset-0 top-24 bg-black bg-opacity-90 z-50 flex justify-center items-start overflow-y-auto" ref={searchResultsRef}>
+            <div className="fixed inset-0 top-24 lg:top-32 xl:top-24 bg-black bg-opacity-90 z-50 flex justify-center items-start overflow-y-auto" ref={searchResultsRef}>
               <div className='mt-16 max'>
                 <div className='lg:flex lg:flex-wrap'>
                   { currentLanguage !== 'de' ? (filteredPosts.map(post => (

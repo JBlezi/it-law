@@ -96,7 +96,7 @@ const HomePage = () => {
         </div>
       </div>
       <div style={{ marginTop: marginAboveArticles + 120}} className='xl:hidden'>
-        {posts.map(post => (
+        {posts.slice(1).map(post => (
           <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content}/>
         ))}
       </div>
@@ -107,7 +107,7 @@ const HomePage = () => {
           ))}
         </div>
         <div className='w-1/3'>
-          <div className='h-min-content bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey' ref={titleRef2}>
+          <div className='h-min-content bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey'>
             <h2 className='text-grey underline md:text-2xl dark:text-light'>NEWS</h2>
             <RSSComponent></RSSComponent>
           </div>

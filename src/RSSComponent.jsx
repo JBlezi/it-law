@@ -63,7 +63,7 @@ const RSSComponent = () => {
           </div>
         ))}
       </div>
-      <div className='lg:block xl:hidden'>
+      <div className='hidden lg:block xl:hidden'>
         {articles.slice(0, 5).map((article, index) => (
           <div key={index} className='my-4 py-4 px-4 bg-grey rounded-lg'>
             <a href={article.link} target="_blank" rel="noopener noreferrer">
