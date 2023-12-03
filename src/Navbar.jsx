@@ -128,13 +128,15 @@ const Navbar = ({ onSearch }) => {
           </div>
           <Link to="/imprint" className="mx-8"><p>{t('navbar.imprint')}</p></Link>
           <Link to="/data-protection-policy" className="mx-8"><p>{t('navbar.data')}</p></Link>
-          <div className='mt-32 flex flex-wrap justify-end mx-8'>
-            {socials.length > 0 && socials.map(social => (
-              <div className='w-1/2 md:w-1/4' key={social.sys.id}>
-                <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
-              </div>
-            ))}
-          </div>
+          {socials.length > 0 ? (
+            <div className='mt-32 flex flex-wrap justify-end mx-8'>
+              {socials.length > 0 && socials.map(social => (
+                <div className='w-1/2 md:w-1/4' key={social.sys.id}>
+                  <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
+                </div>
+              ))}
+            </div>
+          ) : "" }
         </div>
       </div>
     );

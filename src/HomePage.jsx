@@ -80,11 +80,11 @@ const HomePage = () => {
     <div className=''>
       <div style={backgroundStyle} className='h-[80vh] relative' ref={titleRef3}>
         <div className='absolute inset-0 bg-black bg-opacity-70'></div>
-        <div className='mx-8 relative pt-12 dark:text-light'>
+        <div className='mx-8 lg:mx-16 relative pt-12 dark:text-light'>
           <div ref={titleRef}>
             <h1 className='text-4xl md:text-6xl font-bold mb-4 xl:mt-16'>{ posts.length > 0 ? posts[0].fields.title : ""}</h1>
             <h2 className='text-xl font-medium mb-4 xl:mb-16'>by <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[0] : ""},</span> <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[1] : ""} </span>| { posts.length > 0 ? formatDate(posts[0].sys.createdAt) : ""}| {posts.length > 0 ? `${calculateReadingTime(posts[0].fields.content)} min read` : ""}</h2>
-            <p className='text-2xl font-medium mb-8 line-clamp-3 xl:mb-16'>{ posts.length > 0 ? posts[0].fields.content : ""}</p>
+            <p className='text-2xl xl:text-3xl font-medium mb-8 line-clamp-3 leading-normal xl:mb-16'>{ posts.length > 0 ? posts[0].fields.content : ""}</p>
             <Button color='main' link={ posts.length > 0 ? `/article/${posts[0].sys.id}` : ""} text={t('home.button')}/>
           </div>
           <div className='xl:hidden xl:justify-end xl:w-full'>
@@ -100,7 +100,7 @@ const HomePage = () => {
           <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content}/>
         ))}
       </div>
-      <div className='hidden xl:flex'>
+      <div className='hidden xl:flex mr-8'>
         <div className='w-2/3'>
           {posts.slice(1).map(post => (
             <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content}/>
@@ -113,16 +113,18 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className='mt-32 mx-8'>
-        <h2 className='text-grey dark:text-light text-xl md:text-2xl xl:text-4xl underline'>{t('home.social')}</h2>
-        <div className=' flex flex-wrap mx-8 xl:my-16'>
-          {socials.length > 0 && socials.map(social => (
-            <div className='w-1/2 md:w-1/3 xl:w-1/4' key={social.sys.id}>
-              <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
-            </div>
-          ))}
+      {socials.length > 0 ? (
+        <div className='mt-32 mx-8'>
+          <h2 className='text-grey dark:text-light text-xl md:text-2xl xl:text-4xl underline'>{t('home.social')}</h2>
+          <div className=' flex flex-wrap mx-8 xl:my-16'>
+            {socials.length > 0 && socials.map(social => (
+              <div className='w-1/2 md:w-1/3 xl:w-1/4' key={social.sys.id}>
+                <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : "" }
     </div>
   );
 };
