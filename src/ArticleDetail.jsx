@@ -13,7 +13,7 @@ const ArticleDetail = () => {
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="mb-8 text-xl">{children}</p>
+        <p className="mb-8 text-xl lg:text-3xl">{children}</p>
       ),
       // Add other node type renderers if needed
     },
@@ -57,8 +57,8 @@ const ArticleDetail = () => {
     <div>
       <div className='mx-8 text-grey dark:text-light my-16'>
         <img src={article.fields.image.fields.file.url} alt="" className='aspect-video object-cover mb-4'/>
-        <h2 className='text-2xl font-bold mb-4'>{article.fields.title}</h2>
-        <h3 className='text-xl font-medium mb-16'>by <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min read`} </h3>
+        <h2 className='text-2xl lg:text-5xl font-bold mb-4'>{article.fields.title}</h2>
+        <h3 className='text-xl lg:text-3xl font-medium mb-16'>by <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min read`} </h3>
         <div>
           {documentToReactComponents(article.fields.formattedContent, options)}
         </div>

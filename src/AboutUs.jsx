@@ -4,7 +4,7 @@ const AboutUs = () => {
 
   return (
     <div className="mx-8 pt-12 text-grey dark:text-light">
-      <h1 className='text-4xl font-bold mb-4'>About Us</h1>
+      <h1 className='text-4xl lg:text-5xl font-bold mb-4'>About Us</h1>
     </div>
   );
 };

@@ -130,20 +130,20 @@ const Navbar = ({ onSearch }) => {
   };
 
   return (
-    <nav className="p-4 text-black">
-      <div className="flex items-center justify-between lg:mx-10 lg:mt-10">
+    <nav className="p-4 lg:p-8 text-black">
+      <div className="flex items-center justify-between">
         <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-16 rounded-full" /></Link>
         <div className="relative flex items-center md:w-2/3 md:mx-8">
-          <FaSearch className="absolute left-3 text-lg text-gray-400 dark:text-light" />
+          <FaSearch className="absolute left-3 lg:left-6 text-lg text-gray-400 dark:text-light" />
           <input
             type="text"
             placeholder={t('navbar.search')}
             value={searchQuery}
             onChange={handleSearchChange}
-            className="pl-10 pr-3 py-3 rounded-lg dark:text-light md:w-full focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
+            className="pl-10 pr-3 py-3 lg:py-4 lg:pl-16 lg:text-lg rounded-lg dark:text-light md:w-full focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
           />
         </div>
-        <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden">
+        <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer xl:hidden">
           {!isOpen ? (
             <img src={isDarkMode() ? hamburgerWhite : hamburger} alt="Open menu" className="h-10 w-10" />
           ) : (
