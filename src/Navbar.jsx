@@ -20,9 +20,30 @@ const Navbar = ({ onSearch }) => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
   const location = useLocation();
-  const isCategoryPage = location.pathname.includes('/category');
+
   const currentLanguage = i18n.language;
   const isDarkMode = () => document.documentElement.classList.contains('dark');
+
+  const isCategoryPage = () => {
+    return location.pathname.startsWith('/category/');
+  };
+
+  const isCurrentPage = (path) => {
+    return location.pathname === path;
+  };
+
+  const getCurrentCategory = () => {
+    const pathSegments = location.pathname.split('/');
+    // Assuming the URL pattern is "/category/{categoryName}"
+    if (pathSegments[1] === "category" && pathSegments.length > 2) {
+      // Join the segments back into a single string, replacing hyphens with spaces
+      return pathSegments.slice(2).join(' ').replace(/%20/g, ' ');
+    }
+    return null;
+  };
+
+
+  const currentCategory = getCurrentCategory();
 
   const changeLanguage = (language) => {
     localStorage.setItem('language', language);
@@ -47,7 +68,7 @@ const Navbar = ({ onSearch }) => {
       <div className="inline-block text-left w-full xl:mr-8 relative">
         <div className="w-full">
           <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-2xl md:text-4xl xl:text-2xl xl:font-base font-medium text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
-            CATEGORIES
+          <p className={`${isCategoryPage() ? 'font-bold' : ''}`}>{t('navbar.categories')}</p>
             <svg className="-mr-1 ml-2 h-10 w-10 xl:h-8 xl:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -59,7 +80,7 @@ const Navbar = ({ onSearch }) => {
             <div className="right-0 mt-2 text-light bg-grey absolute z-20 xl:hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
               <div className="py-1" role="none">
                 {categories.map((category, index) => (
-                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-100 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                  <Link key={index} to={`/category/${category}`} className={`block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-900 w-full ${currentCategory === category ? 'font-bold' : ''}`} role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
                     {category.toUpperCase()}
                   </Link>
                 ))}
@@ -68,7 +89,7 @@ const Navbar = ({ onSearch }) => {
             <div className="right-0 mt-2 text-light bg-grey absolute z-20 hidden xl:block rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
               <div className="py-1" role="none">
                 {categories.map((category, index) => (
-                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-900 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                  <Link key={index} to={`/category/${category}`} className={`block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-900 w-full ${currentCategory === category ? 'font-bold' : ''}`} role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
                     {category.toUpperCase()}
                   </Link>
                 ))}
@@ -127,7 +148,7 @@ const Navbar = ({ onSearch }) => {
             <CategoriesDropdown categories={categories}></CategoriesDropdown>
           </div>
           <Link to="/imprint" className="mx-8"><p>{t('navbar.imprint')}</p></Link>
-          <Link to="/data-protection-policy" className="mx-8"><p>{t('navbar.data')}</p></Link>
+          <Link to="/data-protection-policy" className="mx-8 text-right"><p>{t('navbar.data')}</p></Link>
           {socials.length > 0 ? (
             <div className='mt-32 flex flex-wrap justify-end mx-8'>
               {socials.length > 0 && socials.map(social => (
@@ -164,8 +185,8 @@ const Navbar = ({ onSearch }) => {
               </div>
           )}
           <CategoriesDropdown categories={categories}></CategoriesDropdown>
-          <Link to="/about-us" className="mr-8 whitespace-nowrap"><p>{t('navbar.about')}</p></Link>
-          <Link to="/home" className="mr-8"><p>HOME</p></Link>
+          <Link to="/about-us" className={`mr-8 whitespace-nowrap ${isCurrentPage('/about-us') ? 'font-bold' : ''}`}><p>{t('navbar.about')}</p></Link>
+          <Link to="/home" className={`mr-8 ${isCurrentPage('/home') ? 'font-bold' : ''}`}><p>HOME</p></Link>
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer xl:hidden">
           {!isOpen ? (
