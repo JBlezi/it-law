@@ -1,8 +1,11 @@
 .App {
   font-family: 'Lato', sans-serif;
   color: white;
-  max-width: 1280px;
+}
 
+.max {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .App-logo {

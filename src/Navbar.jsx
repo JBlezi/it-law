@@ -44,24 +44,35 @@ const Navbar = ({ onSearch }) => {
     };
 
     return (
-      <div className="inline-block text-left w-full">
+      <div className="inline-block text-left w-full xl:mr-8 xl:relative">
         <div className="w-full">
-          <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-4xl font-medium text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
+          <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-4xl xl:text-2xl xl:font-base font-medium text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
             CATEGORIES
-            <svg className="-mr-1 ml-2 h-10 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg className="-mr-1 ml-2 h-10 w-10 xl:h-8 xl:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </button>
         </div>
 
         {isOpen && (
-          <div className="right-0 mt-2 text-light bg-grey" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
-            <div className="py-1" role="none">
-              {categories.map((category, index) => (
-                <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-2xl hover:bg-gray-100 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
-                  {category.toUpperCase()}
-                </Link>
-              ))}
+          <div>
+            <div className="right-0 mt-2 text-light bg-grey xl:hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+              <div className="py-1" role="none">
+                {categories.map((category, index) => (
+                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-2xl hover:bg-gray-100 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                    {category.toUpperCase()}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="right-0 mt-2 text-light bg-grey absolute z-20 rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+              <div className="py-1" role="none">
+                {categories.map((category, index) => (
+                  <Link key={index} to={`/category/${category}`} className="block text-right px-4 py-2 text-2xl hover:bg-gray-900 w-full" role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
+                    {category.toUpperCase()}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -105,11 +116,11 @@ const Navbar = ({ onSearch }) => {
         </div>
         <div className="text-2xl md:text-4xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
-          {!isCategoryPage && (
-              <div className="">
-                <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
-                <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
-              </div>
+            {!isCategoryPage && (
+                <div className="">
+                  <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
+                  <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
+                </div>
             )}
             <Link to="/home"><p>HOME</p></Link>
             <Link to="/about-us"><p>{t('navbar.about')}</p></Link>
@@ -130,9 +141,9 @@ const Navbar = ({ onSearch }) => {
   };
 
   return (
-    <nav className="p-4 lg:p-8 text-black">
+    <nav className="p-4 lg:p-8 xl:p-4 text-black">
       <div className="flex items-center justify-between">
-        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-16 rounded-full" /></Link>
+        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-16 rounded-full xl:max-w-none" /></Link>
         <div className="relative flex items-center md:w-2/3 md:mx-8">
           <FaSearch className="absolute left-3 lg:left-6 text-lg text-gray-400 dark:text-light" />
           <input
@@ -142,6 +153,17 @@ const Navbar = ({ onSearch }) => {
             onChange={handleSearchChange}
             className="pl-10 pr-3 py-3 lg:py-4 lg:pl-16 lg:text-lg rounded-lg dark:text-light md:w-full focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
           />
+        </div>
+        <div className="hidden xl:block text-2xl md:text-4xl xl:text-2xl font-normal xl:flex items-center dark:text-light">
+          {!isCategoryPage && (
+              <div className="flex mr-8">
+                <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
+                <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
+              </div>
+          )}
+          <CategoriesDropdown categories={categories}></CategoriesDropdown>
+          <Link to="/about-us" className="mr-8 whitespace-nowrap"><p>{t('navbar.about')}</p></Link>
+          <Link to="/home" className="mr-8"><p>HOME</p></Link>
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer xl:hidden">
           {!isOpen ? (

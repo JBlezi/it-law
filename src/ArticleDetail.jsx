@@ -13,7 +13,7 @@ const ArticleDetail = () => {
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="mb-8 text-xl lg:text-3xl">{children}</p>
+        <p className="mb-8 text-xl lg:text-3xl xl:leading-normal">{children}</p>
       ),
       // Add other node type renderers if needed
     },

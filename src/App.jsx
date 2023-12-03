@@ -1,6 +1,6 @@
 import './App.css';
 import './index.css';
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useRef  } from 'react';
 import './i18n';
 import { fetchBlogPosts } from './contentful';
 import HomePage from './HomePage';
@@ -16,7 +16,8 @@ import { useTranslation } from 'react-i18next';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 
 function App() {
@@ -27,6 +28,13 @@ function App() {
   const [isSearching, setIsSearching] = useState(false); // New state for search activity
   const { i18n } = useTranslation();
   const currentLanguage = localStorage.getItem('language') || i18n.language;
+  const searchResultsRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
+      resetSearch();
+    }
+  };
 
   useEffect(() => {
     const getPosts = async () => {
@@ -58,6 +66,22 @@ function App() {
 
   }, [i18n]);
 
+  useEffect(() => {
+    if (isSearching) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSearching]);
+
+  const resetSearch = () => {
+    setIsSearching(false);
+    // Reset the search query as well, if you are storing it in the state
+  };
 
   const handleSearch = (query) => {
     setIsSearching(query.length > 0); // Update isSearching based on query length
@@ -82,17 +106,30 @@ function App() {
   return (
     <Router>
       <div className="App dark:bg-grey">
-        <Navbar onSearch={handleSearch}/>
-        <Suspense fallback="loading">
-          {isSearching ? (
-            <div className='mt-16'>
-              { currentLanguage !== 'de' ? (filteredPosts.map(post => (
-                <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
-              ))) : (filteredPostsDE.map(post => (
-                <Article key={post.sys.id} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
-              )))}
+        <div className='max'>
+          <Navbar onSearch={handleSearch}/>
+          {isSearching && (
+            <div className="fixed inset-0 top-24 bg-black bg-opacity-90 z-50 flex justify-center items-start overflow-y-auto" ref={searchResultsRef}>
+              <div className='mt-16 max'>
+                <div className='lg:flex lg:flex-wrap'>
+                  { currentLanguage !== 'de' ? (filteredPosts.map(post => (
+                    <div key={post.sys.id} className='lg:w-1/2'>
+                      <Link to={`/article/${post.sys.id}`} onClick={resetSearch}>
+                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
+                      </Link>
+                    </div>
+                  ))) : (filteredPostsDE.map(post => (
+                    <div key={post.sys.id} className='lg:w-1/2'>
+                      <Link to={`/article/${post.sys.id}`} onClick={resetSearch}>
+                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
+                      </Link>
+                    </div>
+                  )))}
+                </div>
+              </div>
             </div>
-          ) : (
+          )}
+          <Suspense fallback="loading">
             <Routes>
               <Route path="/home" element={<HomePage />}/>
               <Route path="/imprint" element={<Imprint />}/>
@@ -101,9 +138,9 @@ function App() {
               <Route path="/article/:articleId" element={<ArticleDetail />}/>
               <Route path="/category/:category" element={<Category />}/>
             </Routes>
-          )}
-        </Suspense>
-        <Footer />
+          </Suspense>
+          <Footer />
+        </div>
       </div>
     </Router>
   );
