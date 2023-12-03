@@ -36,6 +36,17 @@ function App() {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
+  };
+
+  const calculateReadingTime = (content) => {
+    const wordsPerMinute = 200;
+    const textLength = content.split(/\s+/).length;
+    return `${Math.ceil(textLength / wordsPerMinute)} min`;
+  };
+
   useEffect(() => {
     const getPosts = async () => {
       const blogPosts = await fetchBlogPosts('en-US');
@@ -115,13 +126,13 @@ function App() {
                   { currentLanguage !== 'de' ? (filteredPosts.map(post => (
                     <div key={post.sys.id} className='lg:w-1/2'>
                       <Link to={`/article/${post.sys.id}`} onClick={resetSearch}>
-                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
+                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)}/>
                       </Link>
                     </div>
                   ))) : (filteredPostsDE.map(post => (
                     <div key={post.sys.id} className='lg:w-1/2'>
                       <Link to={`/article/${post.sys.id}`} onClick={resetSearch}>
-                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content}/>
+                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)}/>
                       </Link>
                     </div>
                   )))}
