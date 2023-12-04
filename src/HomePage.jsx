@@ -96,34 +96,50 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div style={{ marginTop: marginAboveArticles + 120}} className='xl:hidden'>
+      <div style={{ marginTop: marginAboveArticles + 120}} className='xl:hidden flex flex-wrap'>
         {posts.slice(1).map(post => (
-          <Link to={`/article/${post.sys.id}`}>
-            <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
-          </Link>
+          <div className='lg:w-1/2'>
+            <Link to={`/article/${post.sys.id}`}>
+              <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
+            </Link>
+          </div>
         ))}
       </div>
       <div className='hidden xl:flex mr-16'>
-        <div className='w-2/3 mx-8'>
+        <div className='w-3/5 mx-8'>
           {posts.slice(1).map(post => (
             <Link to={`/article/${post.sys.id}`}>
               <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
             </Link>
           ))}
         </div>
-        <div className='w-1/3'>
+        <div className='w-2/5'>
           <div className='h-min-content bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey'>
             <h2 className='text-grey underline md:text-2xl dark:text-light'>NEWS</h2>
             <RSSComponent></RSSComponent>
           </div>
+          {socials.length > 0 ? (
+            <div className='p-8 bg-light-grey rounded-lg my-16'>
+              <div className='hidden xl:block'>
+                <h2 className='text-grey dark:text-light text-xl md:text-2xl underline'>{t('home.social')}</h2>
+                <div className=' flex flex-wrap'>
+                  {socials.length > 0 && socials.map(social => (
+                    <div className='w-1/2' key={social.sys.id}>
+                      <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : "" }
         </div>
       </div>
       {socials.length > 0 ? (
-        <div className='mt-32 mx-8'>
+        <div className='mt-32 mx-8 xl:hidden'>
           <h2 className='text-grey dark:text-light text-xl md:text-2xl xl:text-4xl underline'>{t('home.social')}</h2>
           <div className=' flex flex-wrap mx-8 xl:my-16'>
             {socials.length > 0 && socials.map(social => (
-              <div className='w-1/2 md:w-1/3 xl:w-1/4' key={social.sys.id}>
+              <div className='w-1/2 md:w-1/3 lg:w-1/4' key={social.sys.id}>
                 <Social title={social.fields.title} image={social.fields.icon.fields.file.url} link={social.fields.link}/>
               </div>
             ))}
