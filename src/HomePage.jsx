@@ -5,6 +5,7 @@ import Social from './Social';
 import RSSComponent from './RSSComponent';
 import { fetchBlogPosts, fetchSocial } from './contentful';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -97,13 +98,17 @@ const HomePage = () => {
       </div>
       <div style={{ marginTop: marginAboveArticles + 120}} className='xl:hidden'>
         {posts.slice(1).map(post => (
-          <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content}/>
+          <Link to={`/article/${post.sys.id}`}>
+            <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
+          </Link>
         ))}
       </div>
-      <div className='hidden xl:flex mr-8'>
-        <div className='w-2/3'>
+      <div className='hidden xl:flex mr-16'>
+        <div className='w-2/3 mx-8'>
           {posts.slice(1).map(post => (
-            <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content}/>
+            <Link to={`/article/${post.sys.id}`}>
+              <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
+            </Link>
           ))}
         </div>
         <div className='w-1/3'>

@@ -126,13 +126,13 @@ function App() {
                   { currentLanguage !== 'de' ? (filteredPosts.map(post => (
                     <div key={post.sys.id} className='lg:w-1/2'>
                       <Link to={`/article/${post.sys.id}`} onClick={resetSearch}>
-                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)}/>
+                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} categories={post.fields.categories}/>
                       </Link>
                     </div>
                   ))) : (filteredPostsDE.map(post => (
                     <div key={post.sys.id} className='lg:w-1/2'>
                       <Link to={`/article/${post.sys.id}`} onClick={resetSearch}>
-                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)}/>
+                        <Article header={post.fields.title} link={`/article/${post.sys.id}`} image={post.fields.image.fields.file.url} authors={post.fields.authors} content={post.fields.content} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} categories={post.fields.categories}/>
                       </Link>
                     </div>
                   )))}

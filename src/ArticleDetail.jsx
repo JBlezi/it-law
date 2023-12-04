@@ -15,6 +15,11 @@ const ArticleDetail = () => {
       [BLOCKS.PARAGRAPH]: (node, children) => (
         <p className="mb-8 text-xl lg:text-3xl xl:leading-normal">{children}</p>
       ),
+      'hyperlink': (node, children) => (
+        <a href={node.data.uri} target="_blank" rel="noopener noreferrer" className="text-main hover:text-blue-800 visited:text-purple-600">
+          {children}
+        </a>
+      ),
       // Add other node type renderers if needed
     },
     // You can also define custom renderers for marks, if necessary
@@ -58,7 +63,12 @@ const ArticleDetail = () => {
       <div className='mx-8 text-grey dark:text-light my-16'>
         <img src={article.fields.image.fields.file.url} alt="" className='aspect-video object-cover mb-8 xl:mb-16 xl:w-2/3'/>
         <h2 className='text-2xl lg:text-5xl font-bold mb-4'>{article.fields.title}</h2>
-        <h3 className='text-xl lg:text-3xl font-medium mb-16'>by <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min read`} </h3>
+        <h3 className='text-xl lg:text-3xl font-medium mb-4 md:mb-8'>by <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min read`} </h3>
+        <div className='mb-12 md:mb-16'>
+          {article.fields.categories.map(category =>(
+            <span className='px-2 py-1 md:px-4 md:py-2 bg-light-grey md:text-xl rounded-lg mr-2'>{category}</span>
+          ))}
+        </div>
         <div>
           {documentToReactComponents(article.fields.formattedContent, options)}
         </div>

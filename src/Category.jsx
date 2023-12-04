@@ -63,10 +63,10 @@ const ArticleDetail = () => {
 
   return (
     <div>
-      <div className='mx-8 text-grey dark:text-light my-16 lg:flex lg:flex-wrap'>
+      <div className='text-grey dark:text-light my-16 lg:flex lg:flex-wrap'>
           {posts.map(post => (
-            <div className='lg:w-1/2'>
-              <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={documentToReactComponents(post.fields.formattedContent, options)}/>
+            <div className='lg:w-1/2 mb-32'>
+              <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={documentToReactComponents(post.fields.formattedContent, options)} categories={post.fields.categories}/>
             </div>
           ))}
       </div>
