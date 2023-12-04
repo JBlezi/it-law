@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 
 const Imprint = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="mx-8 pt-12 text-grey dark:text-light">

@@ -120,7 +120,7 @@ const Navbar = ({ onSearch }) => {
       setCategories(uniqueCategories);
     };
     getCategories();
-  },[i18n.language]);
+  },[i18n.language, i18n]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);

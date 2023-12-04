@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Button from './button';
 import Article from './Article';
 import Social from './Social';
@@ -31,7 +31,7 @@ const HomePage = () => {
     }
   }, [posts, socials]);
 
-  const fetchAndCacheContent = async (key, fetchFunction, setState, language) => {
+  const fetchAndCacheContent = useCallback(async (key, fetchFunction, setState, language) => {
     const now = new Date();
     const cachedContent = localStorage.getItem(key);
     if (cachedContent) {
@@ -47,7 +47,10 @@ const HomePage = () => {
     const fetchedData = await fetchFunction(language);
     localStorage.setItem(key, JSON.stringify({ timestamp: now.getTime(), data: fetchedData }));
     setState(fetchedData);
-  };
+  },
+  [cacheDuration] // Include other dependencies if there are any
+);
+
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') || i18n.language;
@@ -57,7 +60,7 @@ const HomePage = () => {
 
     fetchAndCacheContent('blogPostsCache', fetchBlogPosts, setPosts, savedLanguage === 'de' ? 'de' : 'en-US');
     fetchAndCacheContent('socialMediaCache', fetchSocial, setSocials, savedLanguage === 'de' ? 'de' : 'en-US');
-  }, [i18n.language]);
+  }, [i18n.language, fetchAndCacheContent, i18n]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

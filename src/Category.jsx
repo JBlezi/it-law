@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -21,16 +21,18 @@ const ArticleDetail = () => {
     // You can also define custom renderers for marks, if necessary
   };
 
-  const fetchContent = async (fetchFunction, setState, language) => {
-
+  const fetchContent = useCallback(async (fetchFunction, setState, language) => {
     const fetchedData = await fetchFunction(language);
     console.log(fetchedData);
     const filteredPosts = fetchedData.filter(post =>
       post.fields.categories && post.fields.categories.includes(category)
     );
-    console.log(filteredPosts)
+    console.log(filteredPosts);
     setState(filteredPosts);
-  };
+  },
+  [category] // include other dependencies if fetchFunction and setState come from props or state
+);
+
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') || i18n.language;
@@ -39,7 +41,7 @@ const ArticleDetail = () => {
     }
 
     fetchContent(fetchBlogPosts, setPosts, savedLanguage === 'de' ? 'de' : 'en-US');
-  }, [i18n.language, category]);
+  }, [i18n.language, category, fetchContent, i18n]);
 
 
   const formatDate = (dateString) => {

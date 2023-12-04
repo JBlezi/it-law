@@ -1,6 +1,6 @@
 import './App.css';
 import './index.css';
-import React, { useState, useEffect, Suspense, useRef  } from 'react';
+import React, { useState, useEffect, Suspense, useRef, useCallback  } from 'react';
 import './i18n';
 import { fetchBlogPosts } from './contentful';
 import HomePage from './HomePage';
@@ -30,11 +30,18 @@ function App() {
   const currentLanguage = localStorage.getItem('language') || i18n.language;
   const searchResultsRef = useRef(null);
 
-  const handleClickOutside = (event) => {
+  const resetSearch = useCallback(() => {
+    setIsSearching(false);
+    // Include additional logic here if needed
+  }, [setIsSearching]);
+
+
+  const handleClickOutside = useCallback((event) => {
     if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
       resetSearch();
     }
-  };
+  }, [searchResultsRef, resetSearch]);
+
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -87,12 +94,7 @@ function App() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isSearching]);
-
-  const resetSearch = () => {
-    setIsSearching(false);
-    // Reset the search query as well, if you are storing it in the state
-  };
+  }, [isSearching, handleClickOutside]);
 
   const handleSearch = (query) => {
     setIsSearching(query.length > 0); // Update isSearching based on query length
