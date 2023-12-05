@@ -11,6 +11,6 @@
   publish = "build"
 
   # Directory containing your serverless functions
-  functions = "netlify/functions"
+  functions = "functions"
 
 # Optional: redirects, headers, and other settings can be defined here
