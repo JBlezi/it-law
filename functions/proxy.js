@@ -1,29 +1,31 @@
+const fetch = require('node-fetch');
 const Parser = require('rss-parser');
 
-exports.handler = async function(event, context) {
-    const url = event.queryStringParameters.url;
+const parser = new Parser();
+
+exports.handler = async (event, context) => {
+  try {
+    // Check if URL parameter is provided
+    const { url } = event.queryStringParameters;
     if (!url) {
-        return {
-            statusCode: 400,
-            headers: { "Access-Control-Allow-Origin": "*" },
-            body: 'URL is required'
-        };
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'URL parameter is required' })
+      };
     }
 
-    try {
-        const parser = new Parser();
-        const feed = await parser.parseURL(url);
-        return {
-            statusCode: 200,
-            headers: { "Access-Control-Allow-Origin": "*" },
-            body: JSON.stringify(feed)
-        };
-    } catch (error) {
-        console.error('Error fetching RSS feed', error);
-        return {
-            statusCode: 500,
-            headers: { "Access-Control-Allow-Origin": "*" },
-            body: 'Error fetching RSS feed'
-        };
-    }
+    // Decode and parse the RSS feed
+    const feedUrl = decodeURIComponent(url);
+    const feed = await parser.parseURL(feedUrl);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(feed)
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Internal Server Error' })
+    };
+  }
 };
