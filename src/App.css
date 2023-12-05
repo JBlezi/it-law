@@ -42,3 +42,16 @@
     transform: rotate(360deg);
   }
 }
+
+.custom-paragraph a {
+  color: #007bff;
+  text-decoration: none; /* Example property */
+}
+
+.custom-paragraph a:hover {
+  color: #0056b3;
+}
+
+.custom-paragraph a:visited {
+  color: #67408b;
+}

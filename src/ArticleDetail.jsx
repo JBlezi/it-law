@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { fetchPost } from './contentful';
 import { useTranslation } from 'react-i18next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import './App.css';
 
 const ArticleDetail = () => {
   const { articleId } = useParams();
@@ -13,13 +14,13 @@ const ArticleDetail = () => {
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="mb-8 text-xl lg:text-3xl xl:leading-normal">{children}</p>
-      ),
-      'hyperlink': (node, children) => (
-        <a href={node.data.uri} target="_blank" rel="noopener noreferrer" className="text-main hover:text-blue-800 visited:text-purple-600">
-          {children}
-        </a>
-      ),
+        <p className="custom-paragraph mb-8 text-xl lg:text-3xl xl:leading-normal">{children}</p>
+        ),
+        [INLINES.HYPERLINK]: (node, children) => (
+          <a href={node.data.uri} target="_blank" rel="noopener noreferrer" className="text-main hover:text-blue-800 visited:text-purple-600">
+            {children}
+          </a>
+        ),
       // Add other node type renderers if needed
     },
     // You can also define custom renderers for marks, if necessary

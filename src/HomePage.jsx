@@ -101,9 +101,9 @@ const HomePage = () => {
       </div>
       <div style={{ marginTop: marginAboveArticles + 120}} className='xl:hidden flex flex-wrap'>
         {posts.slice(1).map(post => (
-          <div className='lg:w-1/2'>
+          <div className='lg:w-1/2' key={post.sys.id} >
             <Link to={`/article/${post.sys.id}`}>
-              <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
+              <Article link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
             </Link>
           </div>
         ))}
@@ -111,8 +111,8 @@ const HomePage = () => {
       <div className='hidden xl:flex mr-16'>
         <div className='w-3/5 mx-8'>
           {posts.slice(1).map(post => (
-            <Link to={`/article/${post.sys.id}`}>
-              <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
+            <Link to={`/article/${post.sys.id}`} key={post.sys.id}>
+              <Article  link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
             </Link>
           ))}
         </div>

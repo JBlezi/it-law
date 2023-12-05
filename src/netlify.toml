@@ -1,0 +1,16 @@
+# netlify.toml
+
+[build]
+  # Directory to run the build command in (usually the root of your project)
+  base = "."
+
+  # Command to build your site (e.g., for a create-react-app project)
+  command = "npm run build"
+
+  # Directory with the build output (e.g., the build folder for create-react-app)
+  publish = "build"
+
+  # Directory containing your serverless functions
+  functions = "functions"
+
+# Optional: redirects, headers, and other settings can be defined here

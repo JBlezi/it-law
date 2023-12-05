@@ -28,6 +28,9 @@ const RSSComponent = () => {
       for (const url of FEED_URLS) {
         const encodedUrl = encodeURIComponent(url);
         const response = await fetch(`/proxy?url=${encodedUrl}`);
+        if (!response.ok) {
+          throw new Error(`Network response was not ok, status: ${response.status}`);
+        }
         const data = await response.json();
         const feedTitle = data.title;
 
