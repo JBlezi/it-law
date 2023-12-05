@@ -6,8 +6,8 @@ const RSSComponent = () => {
 
   const fetchAndCacheRSS = async () => {
     const FEED_URLS = [
-      "https://legal-tech.blog/feed",
       "https://legaltechnology.com/feed/",
+      "https://legal-tech.blog/feed",
       "https://www.legalitprofessionals.com/?format=feed&type=rss",
       "https://www.artificiallawyer.com/feed/"
     ];
@@ -27,7 +27,8 @@ const RSSComponent = () => {
 
       for (const url of FEED_URLS) {
         const encodedUrl = encodeURIComponent(url);
-        const response = await fetch(`/proxy?url=${encodedUrl}`);
+        const response = await fetch(`/.netlify/functions/proxy?url=${encodedUrl}`);
+        console.log(response);
         if (!response.ok) {
           throw new Error(`Network response was not ok, status: ${response.status}`);
         }
