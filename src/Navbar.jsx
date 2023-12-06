@@ -137,13 +137,13 @@ const Navbar = ({ onSearch }) => {
         </div>
         <div className="text-2xl md:text-4xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
-            {!isCategoryPage && (
-                <div className="">
-                  <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
-                  <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
-                </div>
+            {!isCategoryPage() && (
+              <div className="">
+                <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
+                <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
+              </div>
             )}
-            <Link to="/home"><p>HOME</p></Link>
+            <Link to="/"><p>HOME</p></Link>
             <Link to="/about-us"><p>{t('navbar.about')}</p></Link>
             <CategoriesDropdown categories={categories}></CategoriesDropdown>
           </div>
@@ -166,7 +166,7 @@ const Navbar = ({ onSearch }) => {
   return (
     <nav className="p-4 lg:p-8 xl:p-4 text-black">
       <div className="flex items-center justify-between">
-        <Link to="/home"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-16 rounded-full xl:max-w-none" /></Link>
+        <Link to="/"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-16 rounded-full xl:max-w-none" /></Link>
         <div className="relative flex items-center md:w-2/3 md:mx-8">
           <FaSearch className="absolute left-3 lg:left-6 text-lg text-gray-400 dark:text-light" />
           <input
@@ -178,15 +178,15 @@ const Navbar = ({ onSearch }) => {
           />
         </div>
         <div className="hidden xl:block text-2xl md:text-4xl xl:text-2xl font-normal xl:flex items-center dark:text-light">
-          {!isCategoryPage && (
-              <div className="flex mr-8">
-                <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
-                <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
-              </div>
+          {!isCategoryPage() && (
+            <div className="flex mr-8">
+              <button onClick={(e) => handleLanguageChange('en', e)} className={`language-button ${currentLanguage === 'en' ? 'font-bold' : ''}`}>EN/</button>
+              <button onClick={(e) => handleLanguageChange('de', e)} className={`language-button ${currentLanguage === 'de' ? 'font-bold' : ''}`}>DE</button>
+            </div>
           )}
           <CategoriesDropdown categories={categories}></CategoriesDropdown>
           <Link to="/about-us" className={`mr-8 whitespace-nowrap ${isCurrentPage('/about-us') ? 'font-bold' : ''}`}><p>{t('navbar.about')}</p></Link>
-          <Link to="/home" className={`mr-8 ${isCurrentPage('/home') ? 'font-bold' : ''}`}><p>HOME</p></Link>
+          <Link to="/" className={`mr-8 ${isCurrentPage('/') ? 'font-bold' : ''}`}><p>HOME</p></Link>
         </div>
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer xl:hidden">
           {!isOpen ? (

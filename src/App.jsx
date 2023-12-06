@@ -12,6 +12,7 @@ import Article from './Article';
 import ArticleDetail from './ArticleDetail';
 import Category from './Category';
 import Footer from './Footer';
+import Custom404 from './Custom404';
 import { useTranslation } from 'react-i18next';
 import {
   BrowserRouter as Router,
@@ -144,12 +145,13 @@ function App() {
           )}
           <Suspense fallback="loading">
             <Routes>
-              <Route path="/home" element={<HomePage />}/>
+              <Route path="/" element={<HomePage />}/>
               <Route path="/imprint" element={<Imprint />}/>
               <Route path="/data-protection-policy" element={<DataProtectionPolicy />}/>
               <Route path="/about-us" element={<AboutUs />}/>
               <Route path="/article/:articleId" element={<ArticleDetail />}/>
               <Route path="/category/:category" element={<Category />}/>
+              <Route path="*" element={<Custom404 />} />
             </Routes>
           </Suspense>
           <Footer />
