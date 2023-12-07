@@ -52,7 +52,7 @@ function App() {
   const calculateReadingTime = (content) => {
     const wordsPerMinute = 200;
     const textLength = content.split(/\s+/).length;
-    return `${Math.ceil(textLength / wordsPerMinute)} min`;
+    return Math.ceil(textLength / wordsPerMinute);
   };
 
   useEffect(() => {
