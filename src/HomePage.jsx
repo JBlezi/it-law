@@ -82,11 +82,11 @@ const HomePage = () => {
 
   return (
     <div className=''>
-      <div style={backgroundStyle} className='h-[80vh] lg:min-h-[700px] relative' ref={titleRef3}>
-        <div className='absolute inset-0 bg-black bg-opacity-70'></div>
+      <div style={backgroundStyle} className='h-[80vh] lg:min-h-[550px] relative rounded-lg' ref={titleRef3}>
+        <div className='absolute inset-0 bg-black bg-opacity-70 rounded-xl'></div>
         <div className='mx-8 lg:mx-16 relative pt-12 dark:text-light'>
           <div ref={titleRef}>
-            <h1 className='text-4xl md:text-6xl font-bold mb-4 xl:mt-16'>{ posts.length > 0 ? posts[0].fields.title : ""}</h1>
+            <h1 className='text-4xl md:text-5xl font-bold mb-4 xl:mt-16'>{ posts.length > 0 ? posts[0].fields.title : ""}</h1>
             <h2 className='text-xl font-medium mb-4 xl:mb-16'>by <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[0] : ""},</span> <span className='underline'>{ posts.length > 0 ? posts[0].fields.authors[1] : ""} </span>| { posts.length > 0 ? formatDate(posts[0].sys.createdAt) : ""}| {posts.length > 0 ? `${calculateReadingTime(posts[0].fields.content)} min read` : ""}</h2>
             <p className='text-2xl xl:text-3xl font-medium mb-8 line-clamp-3 leading-normal xl:mb-16'>{ posts.length > 0 ? posts[0].fields.content : ""}</p>
             <Button color='main' link={ posts.length > 0 ? `/article/${posts[0].sys.id}` : ""} text={t('home.button')}/>

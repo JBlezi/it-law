@@ -17,8 +17,8 @@ const Article = (props) => {
   return (
     <div className='mx-8 text-grey dark:text-light my-16 xl:mb-32'>
       <h2 className='text-2xl md:text-4xl font-bold mb-4'>{header}</h2>
-      <img src={image} alt="" className='aspect-video object-cover mb-4'/>
-      <h3 className='text-xl lg:text-3xl font-medium mb-2 md:mb-4'>by <span className='underline'>{authors[0]},</span> <span className='underline'>{authors[1]}</span>| {date} | {reading_time} min</h3>
+      <img src={image} alt="" className='aspect-video object-cover mb-4 rounded-lg'/>
+      <h3 className='text-xl lg:text-2xl font-medium mb-2 md:mb-4'>by <span className='underline'>{authors[0]},</span> <span className='underline'>{authors[1]}</span>| {date} | {reading_time} min</h3>
       <div className='mb-4 md:mb-8'>
         {categories.map(category =>(
           <span key={category} className='px-2 py-1 md:px-4 md:py-2 bg-light-grey md:text-xl rounded-lg mr-2'>{category}</span>
