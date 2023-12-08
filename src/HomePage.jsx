@@ -82,7 +82,7 @@ const HomePage = () => {
 
   return (
     <div className=''>
-      <div style={backgroundStyle} className='h-[80vh] lg:min-h-[550px] relative rounded-lg' ref={titleRef3}>
+      <div style={backgroundStyle} className='h-[80vh] lg:min-h-[550px] relative xl:rounded-lg' ref={titleRef3}>
         <div className='absolute inset-0 bg-black bg-opacity-70 rounded-xl'></div>
         <div className='mx-8 lg:mx-16 relative pt-12 dark:text-light'>
           <div ref={titleRef}>
