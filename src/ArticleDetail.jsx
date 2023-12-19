@@ -67,7 +67,7 @@ const ArticleDetail = () => {
         <h3 className='text-xl lg:text-3xl font-medium mb-4 md:mb-8'>by <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min read`} </h3>
         <div className='mb-12 md:mb-16'>
           {article.fields.categories.map(category =>(
-            <span className='px-2 py-1 md:px-4 md:py-2 bg-light-grey md:text-xl rounded-lg mr-2'>{category}</span>
+            <span className='px-2 py-1 md:px-4 md:py-2 dark:bg-light-grey bg-gray-300 md:text-xl rounded-lg mr-2'>{category}</span>
           ))}
         </div>
         <div>
