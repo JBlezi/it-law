@@ -21,7 +21,7 @@ const Article = (props) => {
       <h3 className='text-xl lg:text-2xl font-medium mb-2 md:mb-4'>by <span className='underline'>{authors[0]},</span> <span className='underline'>{authors[1]}</span>| {date} | {reading_time} min</h3>
       <div className='mb-4 md:mb-8'>
         {categories.map(category =>(
-          <span key={category} className='px-2 py-1 md:px-4 md:py-2 bg-light-grey md:text-xl rounded-lg mr-2'>{category}</span>
+          <span key={category} className='px-2 py-1 md:px-4 md:py-2 dark:bg-light-grey dark:text-light bg-gray-300 md:text-xl rounded-lg mr-2'>{category}</span>
           ))}
       </div>
       <p className='text-2xl lg:text-3xl font-medium mb-8 line-clamp-3'>{content}</p>

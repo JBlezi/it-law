@@ -122,7 +122,7 @@ const HomePage = () => {
             <RSSComponent></RSSComponent>
           </div>
           {socials.length > 0 ? (
-            <div className='p-8 bg-light-grey rounded-lg my-16'>
+            <div className='p-8 dark:bg-light-grey bg-white rounded-lg my-16'>
               <div className='hidden xl:block'>
                 <h2 className='text-grey dark:text-light text-xl md:text-2xl underline'>{t('home.social')}</h2>
                 <div className=' flex flex-wrap'>

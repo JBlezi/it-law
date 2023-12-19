@@ -59,7 +59,7 @@ const RSSComponent = () => {
     <div className='text-white'>
       <div className='hidden xl:block'>
         {articles.slice(0, 8).map((article, index) => (
-          <div key={index} className='my-4 py-4 px-4 bg-grey rounded-lg'>
+          <div key={index} className='my-4 py-4 px-4 dark:bg-grey bg-gray-300 text-grey dark:text-light rounded-lg'>
             <a href={article.link} target="_blank" rel="noopener noreferrer">
               <h3 className='line-clamp-2 md:line-clamp-1 xl:line-clamp-3 md:text-xl'>{article.title}</h3>
               <p className='text-main line-clamp-1 md:text-xl'>{article.feedTitle}</p>
@@ -69,7 +69,7 @@ const RSSComponent = () => {
       </div>
       <div className='hidden lg:block xl:hidden'>
         {articles.slice(0, 5).map((article, index) => (
-          <div key={index} className='my-4 py-4 px-4 bg-grey rounded-lg'>
+          <div key={index} className='my-4 py-4 px-4 dark:bg-grey bg-gray-300 text-grey dark:text-light rounded-lg'>
             <a href={article.link} target="_blank" rel="noopener noreferrer">
               <h3 className='line-clamp-2 md:line-clamp-1 md:text-xl'>{article.title}</h3>
               <p className='text-main line-clamp-1 md:text-xl'>{article.feedTitle}</p>
@@ -79,7 +79,7 @@ const RSSComponent = () => {
       </div>
       <div className='lg:hidden'>
         {articles.slice(0, 3).map((article, index) => (
-          <div key={index} className='my-4 py-4 px-4 bg-grey rounded-lg'>
+          <div key={index} className='my-4 py-4 px-4 dark:bg-grey bg-gray-300 text-grey dark:text-light rounded-lg'>
             <a href={article.link} target="_blank" rel="noopener noreferrer">
               <h3 className='line-clamp-2 md:line-clamp-1 md:text-xl'>{article.title}</h3>
               <p className='text-main line-clamp-1 md:text-xl'>{article.feedTitle}</p>
