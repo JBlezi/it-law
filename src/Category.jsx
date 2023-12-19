@@ -5,10 +5,11 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS } from '@contentful/rich-text-types';
 import { fetchBlogPosts } from './contentful';
 import Article from './Article';
+import { Helmet } from 'react-helmet';
 
 const ArticleDetail = () => {
   const [posts, setPosts] = useState([]);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { category } = useParams();
 
   const options = {
@@ -65,6 +66,10 @@ const ArticleDetail = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>{t('category.title')} {category}</title>
+        <meta name="description" content={t('category.description') `${category}`}  />
+      </Helmet>
       <div className='text-grey dark:text-light my-16 lg:flex lg:flex-wrap'>
           {posts.map(post => (
             <div className='lg:w-1/2 mb-32'>

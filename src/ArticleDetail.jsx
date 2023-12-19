@@ -4,12 +4,13 @@ import { fetchPost } from './contentful';
 import { useTranslation } from 'react-i18next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { Helmet } from 'react-helmet';
 import './App.css';
 
 const ArticleDetail = () => {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const options = {
     renderNode: {
@@ -61,6 +62,10 @@ const ArticleDetail = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>{t('article.title')} {article.fields.title}</title>
+        <meta name="description" content={t('article.description') `${article.fields.title}`} />
+      </Helmet>
       <div className='mx-8 text-grey dark:text-light my-16'>
         <img src={article.fields.image.fields.file.url} alt="" className='aspect-video object-cover mb-8 xl:mb-16 xl:w-2/3 rounded-lg'/>
         <h2 className='text-2xl lg:text-5xl font-bold mb-4'>{article.fields.title}</h2>

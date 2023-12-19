@@ -8,6 +8,24 @@
   },
   "home": {
     "social": "FOLGE UNS",
-    "button": "MEHR LESEN"
+    "button": "MEHR LESEN",
+    "description": "Home Page des IT-Law Blog. Dieser Blog ist verfasst und regelmäßig erneuert von Benedikt Biernath und behandelt Themen rund um das Thema Recht und IT."
+  },
+  "about": {
+    "description": "Über Uns Seite des IT-Law Blog"
+  },
+  "article": {
+    "title": "Artikel",
+    "description": "Diese Seite zeigt den Artikel mit dem Namen"
+  },
+  "category": {
+    "title": "Kategorie",
+    "description": "Diese Seite zeigt Artikel der Kategorie"
+  },
+  "data": {
+    "description": "Datenschutzverordnung des IT-Law Blog"
+  },
+  "imprint": {
+    "description": "Impressum des IT-Law Blog"
   }
 }

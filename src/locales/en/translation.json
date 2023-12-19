@@ -8,6 +8,20 @@
   },
   "home": {
     "social": "FOLLOW US",
-    "button": "READ MORE"
+    "button": "READ MORE",
+    "description": "Home Page of IT-Law Blog. This Blog is written by a lawyer and updated frequently, writing about topics relating to law and IT."
+  },
+  "about": {
+    "description": "About Us Page for IT-Law Blog"
+  },
+  "article": {
+    "title": "Category",
+    "description": "This page shows all articles of the category"
+  },
+  "data": {
+    "description": "Data Protection Policy of IT-Law Blog"
+  },
+  "imprint": {
+    "description": "Imprint of IT-Law Blog"
   }
 }

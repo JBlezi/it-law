@@ -6,6 +6,7 @@ import RSSComponent from './RSSComponent';
 import { fetchBlogPosts, fetchSocial } from './contentful';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -82,6 +83,10 @@ const HomePage = () => {
 
   return (
     <div className=''>
+      <Helmet>
+        <title>Home Page IT-Law Blog</title>
+        <meta name="description" content={t('home.description')} />
+      </Helmet>
       <div style={backgroundStyle} className='h-[80vh] lg:min-h-[550px] relative xl:rounded-lg' ref={titleRef3}>
         <div className='absolute inset-0 bg-black bg-opacity-70 rounded-xl'></div>
         <div className='mx-8 lg:mx-16 relative pt-12 dark:text-light'>
