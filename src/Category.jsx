@@ -68,7 +68,7 @@ const ArticleDetail = () => {
     <div>
       <Helmet>
         <title>{t('category.title')} {category}</title>
-        <meta name="description" content={t('category.description') `${category}`}  />
+        <meta name="description" content={t('category.description') + `${category}`}  />
       </Helmet>
       <div className='text-grey dark:text-light my-16 lg:flex lg:flex-wrap'>
           {posts.map(post => (

@@ -88,7 +88,7 @@ const HomePage = () => {
         <meta name="description" content={t('home.description')} />
       </Helmet>
       <div style={backgroundStyle} className='h-[80vh] lg:min-h-[550px] relative xl:rounded-lg' ref={titleRef3}>
-        <div className='absolute inset-0 bg-black bg-opacity-70 rounded-xl'></div>
+        <div className='absolute inset-0 bg-black bg-opacity-70 xl:rounded-xl'></div>
         <div className='mx-8 lg:mx-16 relative pt-12 dark:text-light'>
           <div ref={titleRef}>
             <h1 className='text-4xl md:text-5xl font-bold mb-4 xl:mt-16'>{ posts.length > 0 ? posts[0].fields.title : ""}</h1>

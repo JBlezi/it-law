@@ -64,7 +64,7 @@ const ArticleDetail = () => {
     <div>
       <Helmet>
         <title>{t('article.title')} {article.fields.title}</title>
-        <meta name="description" content={t('article.description') `${article.fields.title}`} />
+        <meta name="description" content={t('article.description') + ` ${article.fields.title}`} />
       </Helmet>
       <div className='mx-8 text-grey dark:text-light my-16'>
         <img src={article.fields.image.fields.file.url} alt="" className='aspect-video object-cover mb-8 xl:mb-16 xl:w-2/3 rounded-lg'/>
