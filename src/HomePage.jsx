@@ -107,9 +107,7 @@ const HomePage = () => {
       <div style={{ marginTop: marginAboveArticles + 120}} className='xl:hidden flex flex-wrap'>
         {posts.slice(1).map(post => (
           <div className='lg:w-1/2' key={post.sys.id} >
-            <Link to={`/article/${post.sys.id}`}>
               <Article link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
-            </Link>
           </div>
         ))}
       </div>

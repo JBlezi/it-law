@@ -28,7 +28,6 @@ const RSSComponent = () => {
       for (const url of FEED_URLS) {
         const encodedUrl = encodeURIComponent(url);
         const response = await fetch(`/.netlify/functions/proxy?url=${encodedUrl}`);
-        console.log(response);
         if (!response.ok) {
           throw new Error(`Network response was not ok, status: ${response.status}`);
         }
