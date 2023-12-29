@@ -48,13 +48,14 @@ const RSSComponent = ({ onRendered }) => {
 
       allArticles.sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
       localStorage.setItem('rssFeedCache', JSON.stringify({ timestamp: now.getTime(), data: allArticles }));
-      setArticles(allArticles);
       setIsLoading(false);
+      setArticles(allArticles);
       if (typeof onRendered === 'function') {
         onRendered();
       }
     } catch (error) {
       console.error("Error fetching RSS", error);
+      setIsLoading(false);
     }
   };
 
