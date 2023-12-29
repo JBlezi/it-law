@@ -123,7 +123,6 @@ const HomePage = () => {
         <div className='w-2/5'>
           <div className='h-min-content bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey'>
             <h2 className='text-grey underline md:text-2xl dark:text-light'>NEWS</h2>
-            {console.log("Rendering RSSComponent with onRendered:", () => setRssRendered(true))}
             <RSSComponent onRendered={() => setRssRendered(true)} />
           </div>
           {socials.length > 0 ? (
