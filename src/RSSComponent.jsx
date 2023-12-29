@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const RSSComponent = () => {
+const RSSComponent = ({ onRendered }) => {
+  console.log("RSSComponent props:", { onRendered });
   const [articles, setArticles] = useState([]);
   const cacheDuration = 3600000; // 1 hour in milliseconds
+
 
   const fetchAndCacheRSS = async () => {
     const FEED_URLS = [
@@ -45,6 +47,9 @@ const RSSComponent = () => {
       allArticles.sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
       localStorage.setItem('rssFeedCache', JSON.stringify({ timestamp: now.getTime(), data: allArticles }));
       setArticles(allArticles);
+      if (typeof onRendered === 'function') {
+        onRendered();
+      }
     } catch (error) {
       console.error("Error fetching RSS", error);
     }
@@ -53,6 +58,13 @@ const RSSComponent = () => {
   useEffect(() => {
     fetchAndCacheRSS();
   }, []);
+
+  useEffect(() => {
+    if (articles.length > 0 && typeof onRendered === 'function') {
+      onRendered();
+    }
+  }, [articles, onRendered]);
+
 
   return (
     <div className='text-white'>

@@ -12,11 +12,12 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [socials, setSocials] = useState([]);
   const [marginAboveArticles, setMarginAboveArticles] = useState(0);
+  const [rssRendered, setRssRendered] = useState(false);
   const titleRef = useRef(null);
   const titleRef2 = useRef(null);
   const titleRef3 = useRef(null);
   const { t, i18n } = useTranslation();
-  const cacheDuration = 3600000; // 1 hour in milliseconds
+  const cacheDuration = 3600000; // 1 hour in millisecond
 
   useEffect(() => {
     if (titleRef.current && titleRef2.current && titleRef3.current) {
@@ -30,7 +31,7 @@ const HomePage = () => {
       // Set margin to ensure consistent spacing
       setMarginAboveArticles(Math.max(0, protrusion));
     }
-  }, [posts, socials]);
+  }, [posts, socials, rssRendered]);
 
   const fetchAndCacheContent = useCallback(async (key, fetchFunction, setState, language) => {
     const now = new Date();
@@ -99,7 +100,7 @@ const HomePage = () => {
           <div className='xl:hidden xl:justify-end xl:w-full'>
             <div className='h-min-content bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey xl:w-1/3' ref={titleRef2}>
               <h2 className='text-grey underline md:text-2xl dark:text-light'>NEWS</h2>
-              <RSSComponent></RSSComponent>
+              <RSSComponent onRendered={() => setRssRendered(true)} />
             </div>
           </div>
         </div>
@@ -122,7 +123,8 @@ const HomePage = () => {
         <div className='w-2/5'>
           <div className='h-min-content bg-white p-8 my-8 rounded-lg shadow-lg dark:bg-light-grey'>
             <h2 className='text-grey underline md:text-2xl dark:text-light'>NEWS</h2>
-            <RSSComponent></RSSComponent>
+            {console.log("Rendering RSSComponent with onRendered:", () => setRssRendered(true))}
+            <RSSComponent onRendered={() => setRssRendered(true)} />
           </div>
           {socials.length > 0 ? (
             <div className='p-8 dark:bg-light-grey bg-white rounded-lg my-16'>
