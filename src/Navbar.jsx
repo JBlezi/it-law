@@ -77,7 +77,7 @@ const Navbar = ({ onSearch }) => {
 
         {isOpen && (
           <div className="max-h-32">
-            <div className="right-0 mt-2 dark:text-light dark:bg-grey bg-light absolute z-20 xl:hidden border border-black dark:border-light rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+            <div className="right-0 mt-2 dark:text-light dark:bg-grey bg-light z-20 xl:hidden border border-black dark:border-light rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
               <div className="py-1" role="none">
                 {categories.map((category, index) => (
                   <Link key={index} to={`/category/${category}`} className={`block text-right px-4 py-2 text-xl md:text-2xl hover:bg-gray-900 w-full ${currentCategory === category ? 'font-bold' : ''}`} role="menuitem" tabIndex="-1" id={`menu-item-${index}`} onClick={() => setIsOpen(false)}>
@@ -130,12 +130,12 @@ const Navbar = ({ onSearch }) => {
   const MenuModal = () => {
 
     return (
-      <div className="fixed inset-0 z-50 bg-light dark:bg-grey dark:text-light p-5 w-full h-screen">
+      <div className="fixed inset-0 z-50 bg-light dark:bg-grey dark:text-light p-5 w-full h-screen overflow-y-scroll no-scrollbar">
         <div className="flex justify-between">
           <img src={logo} alt="Biernath Legal Logo" className="h-16 w-16"/>
           <img src={isDarkMode() ? closingXWhite : closingX} alt="Close menu" className="h-8 w-8 m-4"/>
         </div>
-        <div className="text-2xl md:text-4xl font-medium flex flex-col justify-center items-end my-auto h-full space-y-8">
+        <div className="text-2xl md:text-4xl font-medium flex flex-col justify-center items-end my-12 h-full space-y-8">
           <div className="mb-32 flex flex-col items-end space-y-8 mx-8">
             {!isCategoryPage() && (
               <div className="">
