@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from './images/LOGO-NEU.com.logo.png';
-import logoLight from './images/LOGO-NEU-light.logo.png';
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
