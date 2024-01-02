@@ -168,7 +168,7 @@ const Navbar = ({ onSearch }) => {
   return (
     <nav className="p-4 lg:p-8 xl:p-4 text-black">
       <div className="flex items-center justify-between">
-        <Link to="/"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-12 md:h-16 md:w-28 xl:max-w-none dark:hidden" /></Link>
+        <Link to="/"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-20 md:h-16 md:w-28 xl:max-w-none dark:hidden" /></Link>
         <Link to="/"><img src={logoLight} alt="Biernath Legal Logo" className="h-12 w-20 md:h-16 md:w-28 xl:max-w-none dark:block hidden" /></Link>
         <div className="relative flex items-center md:w-2/3 md:mx-8">
           <FaSearch className="absolute left-3 lg:left-6 text-lg text-gray-400 dark:text-light" />
