@@ -70,6 +70,7 @@ const ArticleDetail = () => {
         <title>{t('category.title')} {category}</title>
         <meta name="description" content={t('category.description') + `${category}`}  />
       </Helmet>
+      <h1 className='mx-8 text-2xl lg:text-5xl font-bold mt-8 text-right'>{t('category.header')} <span className='underline text-main'>{category.toUpperCase()}</span></h1>
       <div className='text-grey dark:text-light my-16 lg:flex lg:flex-wrap'>
           {posts.map(post => (
             <div className='lg:w-1/2 mb-32'>

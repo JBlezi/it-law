@@ -20,7 +20,8 @@
   },
   "category": {
     "title": "Kategorie",
-    "description": "Diese Seite zeigt Artikel der Kategorie"
+    "description": "Diese Seite zeigt Artikel der Kategorie",
+    "header": "Kategorie:"
   },
   "data": {
     "description": "Datenschutzverordnung des IT-Law Blog"

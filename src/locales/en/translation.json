@@ -18,6 +18,11 @@
     "title": "Category",
     "description": "This page shows all articles of the category"
   },
+  "category": {
+    "title": "Category",
+    "description": "This Page shows Articles of category",
+    "header": "Category:"
+  },
   "data": {
     "description": "Data Protection Policy of IT-Law Blog"
   },
