@@ -6,6 +6,7 @@ const RSSComponent = ({ onRendered }) => {
   const [isLoading, setIsLoading] = useState(false);
 
 
+  useEffect(() => {
   const fetchAndCacheRSS = async () => {
     localStorage.getItem('rssFeedCache') ? setIsLoading(false) : setIsLoading(true);
 
@@ -59,8 +60,8 @@ const RSSComponent = ({ onRendered }) => {
     }
   };
 
-  useEffect(() => {
     fetchAndCacheRSS();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
