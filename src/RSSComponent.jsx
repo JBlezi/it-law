@@ -51,9 +51,12 @@ const RSSComponent = ({ onRendered }) => {
       localStorage.setItem('rssFeedCache', JSON.stringify({ timestamp: now.getTime(), data: allArticles }));
       setIsLoading(false);
       setArticles(allArticles);
-      if (typeof onRendered === 'function') {
-        onRendered();
-      }
+      // Delay calling onRendered
+      setTimeout(() => {
+        if (typeof onRendered === 'function') {
+          onRendered();
+        }
+      }, 500); // Delay of 300ms
     } catch (error) {
       console.error("Error fetching RSS", error);
       setIsLoading(false);
