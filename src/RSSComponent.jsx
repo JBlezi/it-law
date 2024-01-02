@@ -6,71 +6,82 @@ const RSSComponent = ({ onRendered }) => {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  useEffect(() => {
-  const fetchAndCacheRSS = async () => {
-    localStorage.getItem('rssFeedCache') ? setIsLoading(false) : setIsLoading(true);
+    useEffect(() => {
+      const fetchAndCacheRSS = async (retryCount = 3) => {
+        localStorage.getItem('rssFeedCache') ? setIsLoading(false) : setIsLoading(true);
 
-    const FEED_URLS = [
-      "https://legaltechnology.com/feed/",
-      "https://legal-tech.blog/feed",
-      "https://www.legalitprofessionals.com/?format=feed&type=rss",
-      "https://www.artificiallawyer.com/feed/"
-    ];
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    const now = new Date();
-    const cachedArticles = localStorage.getItem('rssFeedCache');
-    if (cachedArticles) {
-      const { timestamp, data } = JSON.parse(cachedArticles);
-      if (now.getTime() - timestamp < cacheDuration) {
-        setArticles(data);
-        return;
-      }
-    }
+        const FEED_URLS = [
+          "https://legaltechnology.com/feed/",
+          "https://legal-tech.blog/feed",
+          "https://www.legalitprofessionals.com/?format=feed&type=rss",
+          "https://www.artificiallawyer.com/feed/"
+        ];
 
-    try {
-      const allArticles = [];
-
-      for (const url of FEED_URLS) {
-        const encodedUrl = encodeURIComponent(url);
-        const response = await fetch(`/.netlify/functions/proxy?url=${encodedUrl}`);
-        if (!response.ok) {
-          throw new Error(`Network response was not ok, status: ${response.status}`);
+        const now = new Date();
+        const cachedArticles = localStorage.getItem('rssFeedCache');
+        if (cachedArticles) {
+          const { timestamp, data } = JSON.parse(cachedArticles);
+          if (now.getTime() - timestamp < cacheDuration) {
+            setArticles(data);
+            setIsLoading(false);
+            return;
+          }
         }
-        const data = await response.json();
-        const feedTitle = data.title;
 
-        const articlesWithFeedTitle = data.items.map(article => ({
-          ...article,
-          feedTitle
-        }));
+        try {
+          const allArticles = [];
 
-        allArticles.push(...articlesWithFeedTitle);
-      }
+          for (const url of FEED_URLS) {
+            const encodedUrl = encodeURIComponent(url);
+            const response = await fetch(`/.netlify/functions/proxy?url=${encodedUrl}`);
+            if (!response.ok) {
+              throw new Error(`Network response was not ok, status: ${response.status}`);
+            }
+            const data = await response.json();
+            const feedTitle = data.title;
 
-      allArticles.sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
-      localStorage.setItem('rssFeedCache', JSON.stringify({ timestamp: now.getTime(), data: allArticles }));
-      setIsLoading(false);
-      setArticles(allArticles);
-      // Delay calling onRendered
-      setTimeout(() => {
-        if (typeof onRendered === 'function') {
-          onRendered();
+            const articlesWithFeedTitle = data.items.map(article => ({
+              ...article,
+              feedTitle
+            }));
+
+            allArticles.push(...articlesWithFeedTitle);
+          }
+
+          allArticles.sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
+          localStorage.setItem('rssFeedCache', JSON.stringify({ timestamp: now.getTime(), data: allArticles }));
+          setIsLoading(false);
+          setArticles(allArticles);
+          // Delay calling onRendered
+          setTimeout(() => {
+            if (typeof onRendered === 'function') {
+              onRendered();
+            }
+          }, 500); // Delay of 500ms
+        } catch (error) {
+          console.error("Error fetching RSS", error);
+          if (retryCount > 0) {
+            console.log(`Retrying... Attempts left: ${retryCount}`);
+            await delay(3000); // Wait for 3 seconds before retrying
+            fetchAndCacheRSS(retryCount - 1);
+          } else {
+            setIsLoading(false);
+          }
         }
-      }, 500); // Delay of 300ms
-    } catch (error) {
-      console.error("Error fetching RSS", error);
-      setIsLoading(false);
-    }
-  };
+      };
 
-    fetchAndCacheRSS();
+      fetchAndCacheRSS();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (articles.length > 0 && typeof onRendered === 'function') {
-      onRendered();
-    }
+    setTimeout(() => {
+      if (articles.length > 0 && typeof onRendered === 'function') {
+        onRendered();
+      }
+    }, 500); // Delay of 300ms
   }, [articles, onRendered]);
 
 

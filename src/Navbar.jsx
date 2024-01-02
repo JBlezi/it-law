@@ -133,8 +133,8 @@ const Navbar = ({ onSearch }) => {
     return (
       <div className="fixed inset-0 z-50 bg-light dark:bg-grey dark:text-light p-5 w-full h-screen overflow-y-scroll no-scrollbar">
         <div className="flex justify-between">
-          <img src={logo} alt="Biernath Legal Logo" className="h-16 w-32 dark:hidden"/>
-          <img src={logoLight} alt="Biernath Legal Logo" className="h-16 w-32 dark:block hidden"/>
+          <img src={logo} alt="Biernath Legal Logo" className="h-16 dark:hidden"/>
+          <img src={logoLight} alt="Biernath Legal Logo" className="h-16 dark:block hidden"/>
           <img src={isDarkMode() ? closingXWhite : closingX} alt="Close menu" className="h-8 w-8 m-4"/>
         </div>
         <div className="text-2xl md:text-4xl font-medium flex flex-col justify-center items-end my-12 h-full space-y-8">
@@ -168,8 +168,10 @@ const Navbar = ({ onSearch }) => {
   return (
     <nav className="p-4 lg:p-8 xl:p-4 text-black">
       <div className="flex items-center justify-between">
-        <Link to="/"><img src={logo} alt="Biernath Legal Logo" className="h-12 w-20 md:h-16 md:w-28 xl:max-w-none dark:hidden" /></Link>
-        <Link to="/"><img src={logoLight} alt="Biernath Legal Logo" className="h-12 w-20 md:h-16 md:w-28 xl:max-w-none dark:block hidden" /></Link>
+        <Link to="/">
+          <img src={logo} alt="Biernath Legal Logo" className="h-12 md:h-16 md:w-28 xl:max-w-none dark:hidden" />
+          <img src={logoLight} alt="Biernath Legal Logo" className="h-12 md:h-16 md:w-28 xl:max-w-none dark:block hidden" />
+        </Link>
         <div className="relative flex items-center md:w-2/3 md:mx-8">
           <FaSearch className="absolute left-3 lg:left-6 text-lg text-gray-400 dark:text-light" />
           <input
