@@ -31,7 +31,7 @@ const Article = (props) => {
         await navigator.share({
           title: header,
           text: `Check out this article: ${header}`,
-          url: window.location.href // or the specific url of the article
+          url: link
         });
       } catch (error) {
         console.error("Error sharing:", error);

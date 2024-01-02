@@ -100,6 +100,7 @@ const ArticleDetail = () => {
       <Helmet>
         <title>{t('article.title')} {article.fields.title}</title>
         <meta name="description" content={t('article.description') + ` ${article.fields.title}`} />
+        <meta property="og:image" content={article.fields.image.fields.file.url} />
       </Helmet>
       <div className='mx-8 text-grey dark:text-light my-16'>
         <Toast message={message} showToast={showToast} closeToast={() => setShowToast(false)} />
