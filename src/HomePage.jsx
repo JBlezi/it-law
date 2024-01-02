@@ -5,7 +5,6 @@ import Social from './Social';
 import RSSComponent from './RSSComponent';
 import { fetchBlogPosts, fetchSocial } from './contentful';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
