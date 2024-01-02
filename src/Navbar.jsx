@@ -70,7 +70,7 @@ const Navbar = ({ onSearch }) => {
         <div className="w-full">
           <button type="button" onClick={toggleDropdown} className="inline-flex justify-end w-full py-2 text-2xl md:text-4xl xl:text-2xl xl:font-base font-medium dark:text-light" id="menu-button" aria-expanded="true" aria-haspopup="true">
           <p className={`${isCategoryPage() ? 'font-bold' : ''}`}>{t('navbar.categories')}</p>
-            <svg className="-mr-1 ml-2 h-10 w-10 xl:h-8 xl:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg className={`${isOpen ? 'rotate-180' : ''} -mr-1 ml-2 h-10 w-10 xl:h-8 xl:w-8 transition-transform`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </button>
@@ -177,7 +177,7 @@ const Navbar = ({ onSearch }) => {
             placeholder={t('navbar.search')}
             value={searchQuery}
             onChange={handleSearchChange}
-            className="pl-10 pr-3 py-3 lg:py-4 lg:pl-16 lg:text-lg rounded-lg dark:text-light md:w-full focus:border-blue-500 focus:outline-none dark:bg-light-grey dark:placeholder-light"
+            className="pl-10 pr-3 py-3 lg:py-4 lg:pl-16 lg:text-lg rounded-lg dark:text-light md:w-full focus:outline-none focus:placeholder:opacity-0 focus:ring focus:ring-main dark:bg-light-grey dark:placeholder-light"
           />
         </div>
         <div className="hidden xl:block text-2xl md:text-4xl xl:text-2xl font-normal xl:flex items-center dark:text-light">

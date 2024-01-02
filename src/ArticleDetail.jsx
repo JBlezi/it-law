@@ -112,7 +112,7 @@ const ArticleDetail = () => {
               <span className='px-2 py-1 md:px-4 md:py-2 dark:bg-light-grey bg-gray-300 md:text-xl rounded-lg mr-2'>{category}</span>
             ))}
           </div>
-          <IoShareOutline onClick={shareArticle} className='text-2xl ml-8 text-main'/>
+          <IoShareOutline onClick={shareArticle} className='text-2xl md:text-3xl ml-8 text-main cursor-pointer hover:opacity-70'/>
         </div>
         <div>
           {documentToReactComponents(article.fields.formattedContent, options)}

@@ -115,9 +115,9 @@ const HomePage = () => {
       <div className='hidden xl:flex mr-16'>
         <div className='w-3/5 mx-8'>
           {posts.slice(1, 3).map(post => (
-            <Link to={`/article/${post.sys.id}`} key={post.sys.id}>
+            <div key={post.sys.id}>
               <Article  link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={post.fields.content} categories={post.fields.categories}/>
-            </Link>
+            </div>
           ))}
         </div>
         <div className='w-2/5'>

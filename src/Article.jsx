@@ -63,7 +63,7 @@ const Article = (props) => {
       <p className='text-2xl lg:text-3xl font-medium mb-8 line-clamp-3'>{content}</p>
       <div className='flex items-center'>
         <Button color='main' link={link} text={t('home.button')}/>
-        <IoShareOutline onClick={shareArticle} className='text-3xl ml-8 text'/>
+        <IoShareOutline onClick={shareArticle} className='text-3xl ml-8 text hover:opacity-70 cursor-pointer'/>
       </div>
     </article>
   );

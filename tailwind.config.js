@@ -9,7 +9,8 @@ module.exports = {
         'main': '#1584EB',
         'grey': '#2E323D',
         'light': '#F1F5FF',
-        'light-grey': '#495061'
+        'light-grey': '#495061',
+        'main-light': '#60B0F4'
       },
     },
   },
