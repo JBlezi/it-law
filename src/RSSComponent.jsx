@@ -8,8 +8,10 @@ const RSSComponent = ({ onRendered }) => {
 
     useEffect(() => {
       const fetchAndCacheRSS = async (retryCount = 3) => {
-        localStorage.getItem('rssFeedCache') ? setIsLoading(false) : setIsLoading(true);
-
+        const hasCache = !!localStorage.getItem('rssFeedCache');
+        console.log("Has cache:", hasCache);
+        setIsLoading(!hasCache);
+        
         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         const FEED_URLS = [
