@@ -8,9 +8,9 @@ const RSSComponent = ({ onRendered }) => {
   const LoadingPlaceholder = () => {
     return (
       <div className="placeholder-article shimmer">
-        <div className="placeholder-text bg-gray-200 h-16 w-full my-4 rounded-lg"></div>
-        <div className="placeholder-text bg-gray-200 h-16 w-full my-4 rounded-lg"></div>
-        <div className="placeholder-text bg-gray-200 h-16 w-full my-4 rounded-lg"></div>
+        <div className="placeholder-text bg-gray-200 h-24 w-full my-4 rounded-lg"></div>
+        <div className="placeholder-text bg-gray-200 h-24 w-full my-4 rounded-lg"></div>
+        <div className="placeholder-text bg-gray-200 h-24 w-full my-4 rounded-lg"></div>
       </div>
     );
   };
@@ -42,46 +42,51 @@ const RSSComponent = ({ onRendered }) => {
     }
 
     try {
-      const allArticles = [];
-
-      for (const url of FEED_URLS) {
+      // Map each URL to a fetch operation
+      const fetchPromises = FEED_URLS.map(url => {
         const encodedUrl = encodeURIComponent(url);
-        const response = await fetch(`/.netlify/functions/proxy?url=${encodedUrl}`);
-        if (!response.ok) {
-          throw new Error(`Network response was not ok, status: ${response.status}`);
-        }
-        const data = await response.json();
-        const feedTitle = data.title;
+        return fetch(`/.netlify/functions/proxy?url=${encodedUrl}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Network response was not ok, status: ${response.status}`);
+            }
+            return response.json();
+          });
+      });
 
-        const articlesWithFeedTitle = data.items.map(article => ({
+      // Execute all fetch operations in parallel
+      const results = await Promise.all(fetchPromises);
+
+      // Process and combine the results
+      const allArticles = results.flatMap(data => {
+        const feedTitle = data.title;
+        return data.items.map(article => ({
           ...article,
           feedTitle
         }));
-
-        allArticles.push(...articlesWithFeedTitle);
-      }
+      });
 
       allArticles.sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
       localStorage.setItem('rssFeedCache', JSON.stringify({ timestamp: now.getTime(), data: allArticles }));
       setIsLoading(false);
       setArticles(allArticles);
-      // Delay calling onRendered
       setTimeout(() => {
         if (typeof onRendered === 'function') {
           onRendered();
         }
-      }, 500); // Delay of 500ms
+      }, 500);
     } catch (error) {
       console.error("Error fetching RSS", error);
       if (retryCount > 0) {
         console.log(`Retrying... Attempts left: ${retryCount}`);
-        await delay(3000); // Wait for 3 seconds before retrying
+        await delay(3000);
         fetchAndCacheRSS(retryCount - 1);
       } else {
         setIsLoading(false);
       }
     }
   };
+
 
   useEffect(() => {
       fetchAndCacheRSS();
