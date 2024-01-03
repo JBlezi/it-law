@@ -30,7 +30,7 @@ const Article = (props) => {
       try {
         await navigator.share({
           title: header,
-          text: `Check out this article: ${header}`,
+          text: header,
           url: link
         });
       } catch (error) {
