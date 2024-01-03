@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const RSSComponent = ({ onRendered }) => {
   const [articles, setArticles] = useState([]);
   const cacheDuration = 3600000; // 1 hour in milliseconds
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const LoadingPlaceholder = () => {
     return (
