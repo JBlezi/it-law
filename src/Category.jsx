@@ -70,8 +70,8 @@ const ArticleDetail = () => {
         <title>{t('category.title')} {category}</title>
         <meta name="description" content={t('category.description') + `${category}`}  />
       </Helmet>
-      <h1 className='mx-8 text-2xl lg:text-5xl font-bold mt-8 text-right'>{t('category.header')} <span className='underline text-main'>{category.toUpperCase()}</span></h1>
-      <div className='text-grey dark:text-light my-16 lg:flex lg:flex-wrap'>
+      <h1 className='mx-8 text-2xl lg:text-3xl font-bold mt-16 text-grey dark:text-light'><span className='px-2 py-1 md:px-4 md:py-2 dark:bg-light-grey dark:text-light bg-gray-300 md:text-3xl rounded-lg mr-2'>{category}</span></h1>
+      <div className='text-grey dark:text-light my-8 lg:flex lg:flex-wrap'>
           {posts.map(post => (
             <div className='lg:w-1/2 mb-32'>
               <Article key={post.sys.id} link={`/article/${post.sys.id}`} header={post.fields.title} image={post.fields.image.fields.file.url} authors={post.fields.authors} date={formatDate(post.sys.createdAt)} reading_time={calculateReadingTime(post.fields.content)} content={documentToReactComponents(post.fields.formattedContent, options)} categories={post.fields.categories}/>
