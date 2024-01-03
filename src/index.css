@@ -32,3 +32,21 @@ code {
 .transition-transform {
   transition: transform 0.3s ease-in-out;
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: -500px 0;
+  }
+  100% {
+    background-position: 500px 0;
+  }
+}
+
+.shimmer {
+  background: #f6f6f6;
+  background-image: linear-gradient(to right, #f6f6f6 0%, #e0e0e0 20%, #f6f6f6 40%, #f6f6f6 100%);
+  background-repeat: no-repeat;
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
