@@ -64,7 +64,7 @@ const Article = (props) => {
           ))}
       </div>
       <Link to={link}>
-        <p className='text-2xl lg:text-3xl font-medium mb-8 line-clamp-3'>{content}</p>
+        <p className='text-2xl font-medium mb-8 line-clamp-3'>{content}</p>
       </Link>
       <div className='flex items-center'>
         <Button color='main' link={link} text={t('home.button')}/>
