@@ -5,7 +5,7 @@ const RSSComponent = ({ onRendered }) => {
   const cacheDuration = 3600000; // 1 hour in milliseconds
   const [isLoading, setIsLoading] = useState(true);
 
-  const LoadingPlaceholder = () => {
+/*   const LoadingPlaceholder = () => {
     return (
       <div className="placeholder-article shimmer">
         <div className="placeholder-text bg-gray-200 h-24 w-full my-4 rounded-lg"></div>
@@ -13,7 +13,7 @@ const RSSComponent = ({ onRendered }) => {
         <div className="placeholder-text bg-gray-200 h-24 w-full my-4 rounded-lg"></div>
       </div>
     );
-  };
+  }; */
 
 
   const fetchAndCacheRSS = async (retryCount = 3) => {
@@ -105,7 +105,7 @@ const RSSComponent = ({ onRendered }) => {
   return (
     <div className='text-white'>
       {isLoading ? (
-        <>
+/*         <>
           <LoadingPlaceholder />
           <div className='hidden lg:block'>
             <LoadingPlaceholder />
@@ -113,7 +113,10 @@ const RSSComponent = ({ onRendered }) => {
           <div className='hidden xl:block'>
             <LoadingPlaceholder />
           </div>
-        </>
+        </> */
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
+        </div>
       ) : (
         <div>
           <div className='hidden xl:block'>
