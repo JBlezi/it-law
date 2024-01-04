@@ -16,7 +16,8 @@
   },
   "article": {
     "title": "Artikel",
-    "description": "Diese Seite zeigt den Artikel mit dem Namen"
+    "description": "Diese Seite zeigt den Artikel mit dem Namen",
+    "author": "von"
   },
   "category": {
     "title": "Kategorie",

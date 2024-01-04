@@ -106,7 +106,7 @@ const ArticleDetail = () => {
         <Toast message={message} showToast={showToast} closeToast={() => setShowToast(false)} />
         <img src={article.fields.image.fields.file.url} alt="" className='aspect-video object-cover mb-8 xl:mb-16 xl:w-2/3 rounded-lg'/>
         <h2 className='text-2xl lg:text-5xl font-bold mb-4'>{article.fields.title}</h2>
-        <h3 className='text-xl lg:text-3xl font-medium mb-4 md:mb-8'>by <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min read`} </h3>
+        <h3 className='text-xl lg:text-3xl font-medium mb-4 md:mb-8'>{t('article.author')} <span className='underline'>{article.fields.authors[0]},</span> <span className='underline'>{article.fields.authors[1]}</span>| {formatDate(article.sys.createdAt)} | {`${calculateReadingTime(article.fields.content)} min`} </h3>
         <div className='mb-12 md:mb-16 flex'>
           <div>
             {article.fields.categories.map(category =>(

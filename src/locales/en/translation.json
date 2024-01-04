@@ -16,7 +16,8 @@
   },
   "article": {
     "title": "Category",
-    "description": "This page shows all articles of the category"
+    "description": "This page shows all articles of the category",
+    "author": "by"
   },
   "category": {
     "title": "Category",
